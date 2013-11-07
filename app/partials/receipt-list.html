@@ -1,0 +1,23 @@
+ <!-- Navbar -->
+ <div class="navbar navbar-fixed-top center">
+ 	<div class="navbar-inner">
+ 		<div class="container">
+ 			<a class="brand" href="#/page/home">GetPaid</a>
+ 			<ul class="nav">
+ 				<li ng-class="{active: slug == 'add'}"><a href="#/receipts/add">Add</a></li>
+ 			</ul>
+ 		</div>
+ 	</div>
+ </div>
+ <!--displays dynamic generated list here-->
+ <div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
+ 	<div ng-swipe-left = "deleteReceipt({{receipt.id}})" ng-click="receiptClicked({{receipt.id}})" id="{{receipt.id}}">
+ 		<h5>{{receipt.store}} - ${{receipt.amount}}</h5>
+ 	</div>
+</div>
+<div id = "total">
+	<h5></h5>
+</div>
+<div>
+	<h5>Total for all receipts: ${{total}}</h5>
+</div>
