@@ -53,12 +53,13 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
 		receiptDataSvc.getReceipts().then(function(data){
-
+			console.log(data);
 			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
 			for(var i = 0; i < data.length; i++){
-				if(data[i].id == receiptId)
+				if(data[i].id == receiptId){
 				$scope.receipt = data[i];
 				break;
+			}
 			}
 			$scope.total = $scope.receipt.amount;
 			console.log($scope.receipt);
