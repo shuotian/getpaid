@@ -164,7 +164,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 function getTotal(data){
 	var total = 0;
 	for(var i = 0; i < data.length; i++){
-		total+=parseInt(data[i].amount, 10);
+		total+=parseFloat(data[i].amount);
 	}
 	return total;
 }

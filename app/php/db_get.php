@@ -6,7 +6,7 @@
 	$outputArray = array();
 	$receipt = array();
 
-	$result = mysqli_query($dbConnection,"SELECT receiptid,storeName,total,paid FROM Receipt WHERE userId = $userID");
+	$result = mysqli_query($dbConnection,"SELECT receiptid,storeName,total,paid,receiptDate FROM Receipt WHERE userId = $userID");
 
 	//each $row is an array of details from Receipts table that matches our userID
 	while($row = mysqli_fetch_array($result))
@@ -19,6 +19,7 @@
   		$receipt['store'] = $row[1];
   		$receipt['amount'] = $row[2];
   		$receipt['paid'] = $row[3];
+      $receipt['receiptDate']=$row[4];
   		$receipt['items'] = array();
   		while($itemRow = mysqli_fetch_array($itemQuery)){
   			$receipt['items'][$itemRow[0]] = $itemRow[1];
