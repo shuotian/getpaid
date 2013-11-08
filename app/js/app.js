@@ -15,5 +15,6 @@ getpaidApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/receipts', {templateUrl: 'partials/receipt-list.html', controller: 'ReceiptListCtrl'});
   $routeProvider.when('/receipts/add', {templateUrl: 'partials/receipt-new.html', controller: 'NewReceiptCtrl'});
   $routeProvider.when('/receipts/:receiptId', {templateUrl: 'partials/receipt-details.html', controller: 'ReceiptDetailCtrl'});
+  $routeProvider.when('/receipts/edit/:receiptId', {templateUrl: 'partials/receipt-new.html', controller: 'ReceiptEditCtrl'});
   $routeProvider.otherwise({redirectTo: '/receipts'});
 }]);

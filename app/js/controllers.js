@@ -59,8 +59,8 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 }]);
 
 //changes the view to the detailed receipt view based on the receiptId
-getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDataSvc',
-	function($scope, $routeParams, receiptDataSvc){
+getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDataSvc', '$location',
+	function($scope, $routeParams, receiptDataSvc, $location){
 
 		$scope.receiptId = $routeParams.receiptId;
 		var receiptId = $scope.receiptId;
@@ -82,6 +82,11 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 			console.log($scope.receipt);
 			console.log($scope.receipt.amount);
 		});
+
+		$scope.edit = function(id){
+			$location.path('/receipts/edit/'+id);
+			//alert("change path" + id);
+		}
 
 	}]);
 
@@ -158,6 +163,8 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 
 		$scope.cancel();
 	}]);
+
+	//TODO Add edit controller
 
 //Miscellaneous functions
 //function to retrieve the total expenditure for the month.
