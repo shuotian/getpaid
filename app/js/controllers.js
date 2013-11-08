@@ -42,7 +42,9 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 		console.log(receiptId);
 		receiptDataSvc.getReceipts().then(function(data){
 			//offset by 1 because data is 0 indexed. Our receiptId starts from 1 in the db.
+			console.log(data);
 			$scope.receipt = data[receiptId-1];
+			console.log(data[receiptId-1]);
 			$scope.total = data[receiptId-1].amount;
 			console.log(data[receiptId-1].items);
 		});

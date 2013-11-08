@@ -14,11 +14,26 @@ $receiptDate = $postData->receiptDate;
 $paid = $postData->paid;
 $total = $postData->total;
 $shared = $postData->sharedReceipt;
+$items = $postData->items;
 
+$multiquery = "";
 //validation code to ensure all our fields are valid before executing the query
 if(isset($storeName, $receiptDate, $paid, $total, $shared)){
 	$query = "INSERT INTO Receipt (receiptId, userId, total, shared, receiptDate, storeName, paid) VALUES (NULL, '$userID', '$total', '$shared', '$receiptDate', '$storeName', '$paid')";
 	mysqli_query($dbConnection, $query);
-	echo mysqli_insert_id($dbConnection);
+
+	//gets the new receipt id generated
+	$newReceiptId = mysqli_insert_id($dbConnection);
+
+	//adds item to the items table based on the new receipt id.
+	//iterates through the items list and append each item to a query which we will add to a multiquery
+	foreach($items as $item){
+		if(isset($newReceiptId, $item->quantity, $item->cost)){
+			$multiquery .= "INSERT INTO Item (receiptId, itemId, numberOfItems, cost, payerNumber) VALUES ('$newReceiptId', NULL, '$item->quantity','$item->cost', 0);";
+		}
+	}
+	mysqli_multi_query($dbConnection, $multiquery);
+	//executes multi query
+	echo $multi_query;
 }
 ?>
