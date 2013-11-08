@@ -27,20 +27,33 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
     	$location.path('/receipts/'+receiptId.toString());
     }
 
-    //TO BE COMPLETED
     $scope.deleteReceipt = function(receiptId){
     	var data = receiptId;
-    	alert("Delete receipt " + $scope.receipts[receiptId-1].store + " ?");
-
-    	$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_del.php',data)
-			.success(function(response,status){
-				console.log(response);
-				$location.path('/receipts/');
-			})
-			.error(function(response, status) {
-     		// this isn't happening:
-     		console.log(response);
-   			});
+    	var receipt;
+    	for(var i = 0; i < $scope.receipts.length; i++){
+    		if($scope.receipts[i].id == receiptId){
+    			//alert("Delete receipt " + $scope.receipts[i].store + " ?");
+    			receipt = $scope.receipts[i].store;
+    		}
+    	}
+    	receipt.isDisabled = true;
+    	if(confirm("Delete receipt " + receipt + " ?")){
+    	
+    		$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_del.php',data)
+				.success(function(response,status){
+					console.log(response);
+					location.reload();
+				})
+				.error(function(response, status) {
+     			// this isn't happening:
+     			console.log(response);
+   				});
+			}
+		else{
+			receipt.isDisabled = false;
+			$location.path('/receipts');
+			return;
+		}
     }
 
 }]);
@@ -53,6 +66,10 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
 		receiptDataSvc.getReceipts().then(function(data){
+			if(data.length==0){
+				$scope.total = 0;
+				return;
+			}
 			console.log(data);
 			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
 			for(var i = 0; i < data.length; i++){
