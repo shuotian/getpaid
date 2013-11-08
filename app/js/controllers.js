@@ -13,9 +13,10 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 
 /* Controllers */
 //loads all the receipts in the main page
-getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receiptDataSvc',
-	function($scope,$location,receiptDataSvc) {
+getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receiptDataSvc','$http',
+	function($scope,$location,receiptDataSvc, $http) {
 		receiptDataSvc.getReceipts().then(function(data){
+			console.log(data);
 			$scope.receipts = data;
 			$scope.total = getTotal(data);
 		});
@@ -28,7 +29,18 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 
     //TO BE COMPLETED
     $scope.deleteReceipt = function(receiptId){
+    	var data = receiptId;
     	alert("Delete receipt " + $scope.receipts[receiptId-1].store + " ?");
+
+    	$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_del.php',data)
+			.success(function(response,status){
+				console.log(response);
+				$location.path('/receipts/');
+			})
+			.error(function(response, status) {
+     		// this isn't happening:
+     		console.log(response);
+   			});
     }
 
 }]);
@@ -41,12 +53,16 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
 		receiptDataSvc.getReceipts().then(function(data){
-			//offset by 1 because data is 0 indexed. Our receiptId starts from 1 in the db.
-			console.log(data);
-			$scope.receipt = data[receiptId-1];
-			console.log(data[receiptId-1]);
-			$scope.total = data[receiptId-1].amount;
-			console.log(data[receiptId-1].items);
+
+			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
+			for(var i = 0; i < data.length; i++){
+				if(data[i].id == receiptId)
+				$scope.receipt = data[i];
+				break;
+			}
+			$scope.total = $scope.receipt.amount;
+			console.log($scope.receipt);
+			console.log($scope.receipt.amount);
 		});
 
 	}]);

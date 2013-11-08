@@ -23,7 +23,7 @@
   		while($itemRow = mysqli_fetch_array($itemQuery)){
   			$receipt['items'][$itemRow[0]] = $itemRow[1];
   		}
-  		array_push($outputArray,$receipt);
+  		array_push($outputArray,$receiptID=>$receipt);
   		$receipt = array();
   	}
   	echo json_encode($outputArray);
