@@ -1,8 +1,10 @@
 <?php header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 	require("connect.php");
 
-	//preset userID to be 1 for now(person who is logged into the app)
-	$userID = 1;
+	$data = file_get_contents("php://input");
+  $postData = json_decode($data);
+	$userID = $postData->userid;
 	$outputArray = array();
 	$receipt = array();
 

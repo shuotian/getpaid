@@ -26,8 +26,8 @@
  	<div>Item Name: <input type="text" ng-model="newItem.name" /></div><br/>
  	<div>Quantity: <input type="number" ng-model="newItem.quantity" /></div><br/>
  	<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>
- 	<div>Shared: <input type="radio" ng-model="newItem.shared" value = "0" ng-change="receiptPaid('item','1')">Yes
- 	<input type="radio" ng-model="newItem.shared" value = "1" ng-change="receiptPaid('item','0')">No</div><br/>
+ 	<div>Shared: <input type="radio" ng-model="newItem.shared" value = "0" ng-change="receiptPaid('item','0')">Yes
+ 	<input type="radio" ng-model="newItem.shared" value = "1" ng-change="receiptPaid('item','1')">No</div><br/>
 
  	<!--Displays fields to add shared users to the item if the item is shared by someone else-->
  	<div ng-show="newItem.shared">

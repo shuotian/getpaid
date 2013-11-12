@@ -3,7 +3,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require("connect.php");
 
 //pre set userid as 1 for now
-$userID = 1;
+
 
 $data = file_get_contents("php://input");
 $postData = json_decode($data);
@@ -15,6 +15,7 @@ $paid = $postData->paid;
 $total = $postData->total;
 $shared = $postData->sharedReceipt;
 $items = $postData->items;
+$userID = $postData->userid;
 $multiquery = "";
 
 if(isset($storeName, $receiptDate, $paid, $total, $shared)){

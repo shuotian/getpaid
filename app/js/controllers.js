@@ -13,10 +13,12 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 		console.log("user id is null");
 		$location.path('/login');
 	}
+	else
+		$location.path('/receipts');
 
 	//global logout button
 	$rootScope.logout = function() {
-          sessionStorage.clear;
+          sessionStorage.clear();
           console.log(sessionStorage.userid);
           $location.path('/login');
       }
@@ -26,7 +28,7 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 getpaidControllers.factory('receiptDataSvc', function($http) {
 	return {
 		getReceipts: function() {
-			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_get.php').then(function(result) {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_get.php',{params:{userid:sessionStorage.userid}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -62,6 +64,9 @@ getpaidControllers.directive('debug', function() {
 //Facebook login adapted from https://github.com/Ciul/angular-facebook
 getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location','$http',
 	function($scope, $timeout, Facebook, $location, $http){
+		if(sessionStorage.userid!=null){
+			$location.path('/receipts');
+		}
 		// Define user empty data :/
       $scope.user = {};
       
@@ -96,8 +101,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.logged = true;
             $scope.me(0);
             $scope.friends();
-
-            //$location.path('/receipts');  
+            $location.path('/receipts');  
           }
           else
             $scope.login();
@@ -114,7 +118,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           	$scope.logged = true;
             $scope.me(1);
             $scope.friends();
-            //$location.path('/receipts');
+            $location.path('/receipts');
           }
         },{ scope: 'email' });
        };
@@ -163,14 +167,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         		});
 			});
         };
-      
-      /**
-       * Logout
-       */
-      $scope.logout = function() {
-          sessionStorage.clear();    
-      }
-      
+
       /**
        * Taking approach of Events :D
        */
@@ -198,6 +195,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
 //loads all the receipts in the main page
 getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receiptDataSvc','$http',
 	function($scope,$location,receiptDataSvc, $http) {
+		
 		receiptDataSvc.getReceipts().then(function(data){
 			console.log(data);
 			$scope.receipts = data;
@@ -211,7 +209,10 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
     }
 
     $scope.deleteReceipt = function(receiptId){
-    	var data = receiptId;
+    	var data = {
+    		receiptID: receiptId,
+    		userid: sessionStorage.userid
+    	};
     	var receipt;
     	for(var i = 0; i < $scope.receipts.length; i++){
     		if($scope.receipts[i].id == receiptId){
@@ -302,6 +303,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 
 		$scope.save = function() {
 			var data = $scope.form;
+			data.userid = sessionStorage.userid;
 			//sends the whole array of item objects to server for insertion into database.
 			/*1) insert new receipt into db first (should get unique receiptid back)
 			  2) insert payers into db with itemid and receiptid (should get unique payer number back)
@@ -353,8 +355,9 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 //function to retrieve the total expenditure for the month.
 function getTotal(data){
 	var total = 0;
-	for(var i = 0; i < data.length; i++){
-		total+=parseFloat(data[i].amount);
+	for(var key in data){
+
+		total+=parseFloat(data[key].amount);
 	}
 	return total;
 }

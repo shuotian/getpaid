@@ -2,9 +2,10 @@
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 require("connect.php");
 
-$userID = 1;
 $data = file_get_contents("php://input");
-$receiptId = json_decode($data);
+$postData = json_decode($data);
+$userID = $postData->userid;
+$receiptId = $postData->receiptID;
 
 $delete_item_query = "DELETE FROM Item WHERE receiptId = $receiptId";
 $delete_receipt_query = "DELETE FROM Receipt WHERE receiptId = $receiptId";
