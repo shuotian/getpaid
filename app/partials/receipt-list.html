@@ -5,14 +5,15 @@
  			<a class="brand" href="#/page/home">GetPaid</a>
  			<ul class="nav">
  				<li ng-class="{active: slug == 'add'}"><a href="#/receipts/add">Add</a></li>
- 				<li ng-class="{active: slug == 'add'}"><a href="#/login" ng-click = 'logout()'>Logout</a></li>
+ 				<li ng-class="{active: slug == 'add'}"><a  data-ng-click = "logout()">Logout</a></li>
  			</ul>
  		</div>
  	</div>
  </div>
  <!--displays dynamic generated list here-->
+ <div id = "welcomeuser">Welcome Back, &nbsp;{{username}}!</div>
  <div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
- 	<div ng-click="receiptClicked({{receipt.id}})" ng-disabled = "isDisabled" id="{{receipt.id}}">
+ 	<div ng-click="receiptClicked({{receipt.id}})" id="{{receipt.id}}">
  		<h5>{{receipt.store}} ({{receipt.receiptDate}}) &nbsp; - &nbsp;  ${{receipt.amount}}</h5>
  	</div>
  	<div ng-swipe-left = "deleteReceipt({{receipt.id}})" >Swipe left to delete</div>

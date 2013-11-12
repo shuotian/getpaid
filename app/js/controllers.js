@@ -16,12 +16,7 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 	else
 		$location.path('/receipts');
 
-	//global logout button
-	$rootScope.logout = function() {
-          sessionStorage.clear();
-          console.log(sessionStorage.userid);
-          $location.path('/login');
-      }
+	
 });
 //Service which returns all the receipts of the current user
 
@@ -62,8 +57,8 @@ getpaidControllers.directive('debug', function() {
 /* Controllers */
 
 //Facebook login adapted from https://github.com/Ciul/angular-facebook
-getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location','$http',
-	function($scope, $timeout, Facebook, $location, $http){
+getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location','$http','$rootScope',
+	function($scope, $timeout, Facebook, $location, $http,$rootScope){
 		if(sessionStorage.userid!=null){
 			$location.path('/receipts');
 		}
@@ -118,7 +113,9 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           	$scope.logged = true;
             $scope.me(1);
             $scope.friends();
+
             $location.path('/receipts');
+
           }
         },{ scope: 'email' });
        };
@@ -167,7 +164,21 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         		});
 			});
         };
-
+        /**
+       * Logout
+       */
+      $rootScope.logout = function() {
+      	console.log("hello world");
+        Facebook.logout(function() {
+          $scope.$apply(function() {
+            $scope.user   = {};
+            $scope.logged = false;  
+          });
+          sessionStorage.clear();
+          console.log(sessionStorage.userid);
+          $location.path('/login');
+        });
+      }
       /**
        * Taking approach of Events :D
        */
@@ -199,6 +210,7 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 		receiptDataSvc.getReceipts().then(function(data){
 			console.log(data);
 			$scope.receipts = data;
+			$scope.username = sessionStorage.username;
 			$scope.total = getTotal(data);
 		});
 
@@ -214,13 +226,13 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
     		userid: sessionStorage.userid
     	};
     	var receipt;
-    	for(var i = 0; i < $scope.receipts.length; i++){
-    		if($scope.receipts[i].id == receiptId){
+    	for(var key in $scope.receipts){
+    		if($scope.receipts[key].id == receiptId){
     			//alert("Delete receipt " + $scope.receipts[i].store + " ?");
-    			receipt = $scope.receipts[i].store;
+    			receipt = $scope.receipts[key].store;
     		}
     	}
-    	receipt.isDisabled = true;
+    	//receipt.isDisabled = true;
     	if(confirm("Delete receipt " + receipt + " ?")){
     	
     		$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_del.php',data)
@@ -256,9 +268,9 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 			}
 			console.log(data);
 			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
-			for(var i = 0; i < data.length; i++){
-				if(data[i].id == receiptId){
-				$scope.receipt = data[i];
+			for(var key in data){
+				if(data[key].id == receiptId){
+				$scope.receipt = data[key];
 				break;
 			}
 			}
