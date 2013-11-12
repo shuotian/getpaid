@@ -1,7 +1,16 @@
 var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
+/*
+ * Session variables used:
+ * sessionStorage.userid - stores current user id
+ * sessionStorage.email - stores user's email
+ * sessionStorage.username - stores user's name
+ * sessionStorage.friends - stores list of user's friends
+ */
+ 
 
 getpaidControllers.run(function($rootScope,$location, Facebook){
-	if(sessionStorage.id == null){
+	if(sessionStorage.userid == null){
+		console.log("user id is null");
 		$location.path('/login');
 	}
 
@@ -23,6 +32,8 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 		}
 	}
 });
+
+
 
 getpaidControllers.config(['FacebookProvider',
 	function(FacebookProvider){
@@ -49,8 +60,8 @@ getpaidControllers.directive('debug', function() {
 /* Controllers */
 
 //Facebook login adapted from https://github.com/Ciul/angular-facebook
-getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location',
-	function($scope, $timeout, Facebook, $location){
+getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location','$http',
+	function($scope, $timeout, Facebook, $location, $http){
 		// Define user empty data :/
       $scope.user = {};
       
@@ -60,7 +71,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
       // And some fancy flags to display messages upon user status change
       $scope.byebye = false;
       $scope.salutation = false;
-      
+
       /**
        * Watch for Facebook to be ready.
        * There's also the event that could be used
@@ -83,8 +94,10 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         Facebook.getLoginStatus(function(response) {
           if (response.status == 'connected') {
             $scope.logged = true;
-            $scope.me();
-            $location.path('/receipts');
+            $scope.me(0);
+            $scope.friends();
+
+            //$location.path('/receipts');  
           }
           else
             $scope.login();
@@ -94,28 +107,61 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
       /**
        * Login
        */
+       //New user
        $scope.login = function() {
          Facebook.login(function(response) {
           if (response.status == 'connected') {
-            $scope.logged = true;
-            $scope.me();
+          	$scope.logged = true;
+            $scope.me(1);
+            $scope.friends();
+            //$location.path('/receipts');
           }
-        });
+        },{ scope: 'email' });
        };
        
        /**
         * me 
         */
-        $scope.me = function() {
+        $scope.me = function(newuser) {
           Facebook.api('/me', function(response) {
             /**
              * Using $scope.$apply since this happens outside angular framework.
              */
             $scope.$apply(function() {
               $scope.user = response;
-              sessionStorage.userid = response.id;
+            
             });
+            sessionStorage.userid = response.id;
+            sessionStorage.username = response.name;
+            sessionStorage.email = response.email;
+            if(newuser==1){
+            var data ={
+            	userid: sessionStorage.userid,
+            	username: sessionStorage.username,
+            	email: sessionStorage.email
+            };
+            console.log(data);
+            //add user to sql database as new user
+          	$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_addNewUser.php',data)
+				.success(function(response,status){
+					console.log(response);
+				})
+				.error(function(response, status) {
+     			// this isn't happening:
+     			console.log(response);
+   				});
+			}
           });
+        };
+
+        $scope.friends = function(){
+        	FB.api('/me/friends', {fields: 'name,id,location,birthday'}, function(response) {
+        		$scope.$apply(function() {
+        		$scope.friends = response;
+        		sessionStorage.friends = response.data;
+        		//console.log(sessionStorage.email);
+        		});
+			});
         };
       
       /**
