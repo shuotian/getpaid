@@ -17,11 +17,11 @@
   <!-- IMPORTED LIBRARIES -->
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular/angular-route.js"></script>
   <script src="http://code.angularjs.org/1.2.0-rc.3/angular-animate.min.js"></script>
   <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.js"></script>
-  <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
   <script data-require"angular.js@1.1.5" data-semver="1.1.5" src="http://rawgithub.com/Ciul/angular-facebook/master/lib/angular-facebook.js"></script>
 
   <!-- ICONS -->
