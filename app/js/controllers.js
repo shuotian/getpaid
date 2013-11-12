@@ -7,7 +7,7 @@ var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
  * localStorage.friends - stores list of user's friends
  */
  
-
+//runs whenever the app gets starts up
 getpaidControllers.run(function($rootScope,$location, Facebook){
 	if(localStorage.userid == null){
 		console.log("user id is null");
@@ -19,8 +19,8 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 		
 	
 });
-//Service which returns all the receipts of the current user
 
+//Service which returns all the receipts of the current user
 getpaidControllers.factory('receiptDataSvc', function($http) {
 	return {
 		getReceipts: function() {
