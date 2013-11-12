@@ -1,9 +1,13 @@
 var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
 
 getpaidControllers.run(function($rootScope,$location, Facebook){
+	if(sessionStorage.id == null){
+		$location.path('/login');
+	}
+
 	//global logout button
 	$rootScope.logout = function() {
-          sessionStorage.clear();
+          sessionStorage.clear;
           console.log(sessionStorage.userid);
           $location.path('/login');
       }
@@ -43,9 +47,10 @@ getpaidControllers.directive('debug', function() {
 	});
 
 /* Controllers */
+
+//Facebook login adapted from https://github.com/Ciul/angular-facebook
 getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location',
 	function($scope, $timeout, Facebook, $location){
-
 		// Define user empty data :/
       $scope.user = {};
       
