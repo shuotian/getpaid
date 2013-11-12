@@ -1,6 +1,6 @@
 <!--
 - Name: GetPaid Index File
-- Authors: ...
+- Author/s: Joseph Milla
 - Version: 0.0.2b
 - Comment: Beta Version 0.0.2b
 -->
@@ -34,18 +34,9 @@
 
 	  <!-- JAVASCRIPT -->
 	  <script src="js/holder.js"></script>
-    
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
   </head>
-<!-- NAVBAR
-================================================== -->
+  <!-- NAVBAR
+  ================================================== -->
   <body>
     <div class="navbar-wrapper">
       <div class="container">
@@ -64,7 +55,7 @@
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href=".../about.php">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
