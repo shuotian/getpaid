@@ -6,7 +6,7 @@ var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
  * localStorage.username - stores user's name
  * localStorage.friends - stores list of user's friends
  */
- 
+
 //runs whenever the app gets starts up
 getpaidControllers.run(function($rootScope,$location, Facebook){
 	if(localStorage.userid == null){
@@ -96,8 +96,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           if (response.status == 'connected') {
             $scope.logged = true;
             $scope.me(0);
-            $scope.friends();
-            $location.path('/receipts');  
+            $scope.friends(); 
           }
           else
             $scope.login();
@@ -114,9 +113,6 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           	$scope.logged = true;
             $scope.me(1);
             $scope.friends();
-
-            $location.path('/receipts');
-
           }
         },{ scope: 'email' });
        };
@@ -161,7 +157,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         		$scope.$apply(function() {
         		$scope.friends = response;
         		localStorage.friends = response.data;
-        		//console.log(localStorage.email);
+        		//console.log(localStorage.friends);
         		});
 			});
         };
@@ -173,6 +169,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         Facebook.logout(function() {
           $scope.$apply(function() {
             $scope.user   = {};
+            $scope.friends = {};
             $scope.logged = false;
           
           
@@ -181,7 +178,6 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         });
 
         localStorage.clear();
-
         console.log(localStorage.userid);
         $location.path('/login');
       }
@@ -193,7 +189,13 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         if (data.status == 'connected') {
           $scope.$apply(function() {
             $scope.salutation = true;
-            $scope.byebye     = false;    
+            $scope.byebye     = false;
+            localStorage.userid = data.authResponse.userID;
+            console.log(localStorage.friends);
+            if(localStorage.userid!=null){
+            	$location.path('/receipts');
+            }
+
           });
         } else {
           $scope.$apply(function() {
@@ -223,7 +225,7 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 			$scope.total = getTotal(data);
 		});
 
-
+		//console.log(localStorage.friends);
     //to be directed to detailed receipt page when a receipt is clicked on the main page
     $scope.receiptClicked = function(receiptId){
     	$location.path('/receipts/'+receiptId.toString());
