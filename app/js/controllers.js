@@ -13,9 +13,9 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 		console.log("user id is null");
 		$location.path('/login');
 	}
-	else{
+	/*else{
 		$location.path('/receipts');
-	}
+	}*/
 		
 	
 });
@@ -25,6 +25,17 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 	return {
 		getReceipts: function() {
 			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_get.php',{params:{userid:localStorage.userid}}).then(function(result) {
+				return result.data;
+			});
+		}
+	}
+});
+
+//Service which returns the details of current receipt
+getpaidControllers.factory('receiptDetailSvc', function($http) {
+	return {
+		getDetails: function(value) {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_receipt_details.php',{params:{userid:localStorage.userid,receiptid:value}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -266,30 +277,27 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 }]);
 
 //changes the view to the detailed receipt view based on the receiptId
-getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDataSvc', '$location',
-	function($scope, $routeParams, receiptDataSvc, $location){
+getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDetailSvc', '$location',
+	function($scope, $routeParams, receiptDetailSvc, $location){
 
 		$scope.receiptId = $routeParams.receiptId;
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
-		receiptDataSvc.getReceipts().then(function(data){
+		receiptDetailSvc.getDetails(receiptId).then(function(data){
 			if(data.length==0){
 				$scope.total = 0;
 				return;
 			}
-			console.log(data);
 			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
-			for(var key in data){
-				if(data[key].id == receiptId){
-				$scope.receipt = data[key];
-				break;
+			$scope.receipt = data;
+			var total = 0;
+			for(var i =0; i < data.length; i++){
+				total += parseFloat(data[i].cost);
 			}
-			}
-			$scope.total = $scope.receipt.amount;
+			console.log(total);
+			$scope.total = total;
 			console.log($scope.receipt);
-			console.log($scope.receipt.amount);
 		});
-
 		$scope.edit = function(id){
 			$location.path('/receipts/edit/'+id);
 			//alert("change path" + id);
