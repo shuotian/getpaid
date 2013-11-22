@@ -156,8 +156,8 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
         	FB.api('/me/friends', {fields: 'name,id,location,birthday'}, function(response) {
         		$scope.$apply(function() {
         		$scope.friends = response;
-        		localStorage.friends = response.data;
-        		//console.log(localStorage.friends);
+        		localStorage.friends = angular.toJson(response.data);
+ 				//console.log(localStorage.friends);
         		});
 			});
         };
@@ -191,7 +191,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.salutation = true;
             $scope.byebye     = false;
             localStorage.userid = data.authResponse.userID;
-            console.log(localStorage.friends);
+            //console.log(localStorage.friends);
             if(localStorage.userid!=null){
             	$location.path('/receipts');
             }
@@ -316,8 +316,13 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			shared:'',
 			users:[]
 		};
-		
 
+		var friends = {
+			data:JSON.parse(localStorage.friends)
+		}
+		$scope.friends = friends;
+		console.log($scope.friends);
+		
 		//resets the form to the default settings
 		$scope.cancel = function() {
 			$scope.form = angular.copy(master);
@@ -351,9 +356,14 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			$scope.payer='';
 		};
 
-		$scope.addSharedUser = function(item,username){
-			item.users.push(username);
+		$scope.addSharedUser = function(item,username,id){
+			var payer = {
+				name:username,
+				id:id
+			}
+			item.users.push(payer);
 			$scope.payer='';
+			$scope.pyerid = '';
 		};
 
 		$scope.removeItem = function(index) {
@@ -367,6 +377,11 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			else
 				$scope.form.sharedReceipt = value;
 			console.log(value);
+		};
+
+		$scope.attach=function(value,id){
+			$scope.payer = value;
+			$scope.payerid = id;
 		};
 
 		$scope.cancel();

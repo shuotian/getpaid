@@ -36,8 +36,19 @@
  		<!--Displays the user(s) for the current shared item in newItem-->
  			<div>{{user}}[ <a href="" ng-click="removeItem($index)">X</a> ]</div>
  		</div>
- 		<div>Shared User: <input type="text" ng-model="payer" /></div><br/>
- 		[ <a href="" ng-click="addSharedUser(newItem,payer)">add this user</a> ]
+ 		<div>Shared User: <input type="text" ng-model="payer"/></div><br/>
+ 		<div ng-model="payerid" ng-show="hidden"></div>
+ 	<!--Displays a list of facebook friends-->	
+ 	<div ng-show="payer.length">	
+ 		<table id="searchTextResults">
+      <tr><th>FB id</th><th>Name</th></tr>
+      <tr ng-repeat="friend in friends.data | filter:payer">
+        <td>{{friend.id}}</td>
+        <td ng-click="attach(friend.name, friend.id)">{{friend.name}}</td>
+      </tr>
+    </table>
+    </div>
+ 		[ <a href="" ng-click="addSharedUser(newItem,payer,payerid)">add this user</a> ]
  	</div>
 
  	[ <a href="" ng-click="addItem(newItem)">add item</a> ]
