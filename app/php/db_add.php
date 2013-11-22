@@ -30,7 +30,7 @@ if(isset($storeName, $receiptDate, $paid, $total, $shared)){
 		//get the payer's id and name and store it in payers table
 		foreach($item->users as $payer){
 			if(isset($newReceiptId,$payer->id,$payer->name)){
-				$payerQuery = "INSERT INTO Payers (receiptId, payerNumber, name) VALUES ('$newReceiptId','$payer->id', '$payer->name')";
+				$payerQuery = "INSERT INTO Payers (payerNumber, name) VALUES ('$payer->id', '$payer->name')";
 				mysqli_query($dbConnection,$payerQuery);
 			}
 		}
