@@ -2,12 +2,11 @@
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 	require("connect.php");
 
-	$data = file_get_contents("php://input");
-  $postData = json_decode($data);
-	$userID = $postData->userid;
+	
+	$userID = $_GET['userid'];
 	$outputArray = array();
 	$receipt = array();
-
+	
 	$result = mysqli_query($dbConnection,"SELECT receiptid,storeName,total,paid,receiptDate FROM Receipt WHERE userId = $userID");
 
 	//each $row is an array of details from Receipts table that matches our userID
@@ -26,7 +25,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
   		while($itemRow = mysqli_fetch_array($itemQuery)){
   			$receipt['items'][$itemRow[0]] = $itemRow[1];
   		}
-  		array_push($outputArray,$receiptID=>$receipt);
+  		$outputArray[$receiptID]=$receipt;
   		$receipt = array();
   	}
   	echo json_encode($outputArray);

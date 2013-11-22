@@ -303,6 +303,7 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 			//alert("change path" + id);
 		}
 
+
 	}]);
 
 //Controller to create a new receipt and add it to the database
