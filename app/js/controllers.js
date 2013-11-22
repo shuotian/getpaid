@@ -302,7 +302,13 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 			$location.path('/receipts/edit/'+id);
 			//alert("change path" + id);
 		}
-
+		$scope.sendFbMsg = function(payerId){
+			FB.ui({
+  			method: 'send',
+  			link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
+  			to:payerId
+			});
+		}
 
 	}]);
 

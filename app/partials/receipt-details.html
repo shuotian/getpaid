@@ -14,7 +14,9 @@
 
  	<div class="sharedColor" >
  		<h5>{{item.name}} - ${{item.cost}}</h5>
- 		<div ng-hide="item.payerName==='None'">{{item.payerName}} - {{item.payerNumber}}</div>
+ 		<div ng-hide="item.payerName==='None'">{{item.payerName}} - {{item.payerNumber}}
+ 		<button ng-click="sendFbMsg(item.payerNumber)">Send Fb Message</button>
+ 		</div>
  	</div>
  </div>
  <div>
