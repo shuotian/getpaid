@@ -9,7 +9,7 @@ var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
 
 //runs whenever the app gets starts up
 getpaidControllers.run(function($rootScope,$location, Facebook){
-	if(localStorage.userid == null){
+	if(localStorage.userid === undefined){
 		console.log("user id is null");
 		$location.path('/login');
 	}
@@ -71,8 +71,9 @@ getpaidControllers.directive('debug', function() {
 //Facebook login adapted from https://github.com/Ciul/angular-facebook
 getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$location','$http','$rootScope',
 	function($scope, $timeout, Facebook, $location, $http,$rootScope){
-		if(localStorage.userid!=null){
-			$location.path('/receipts');
+		console.log(localStorage.userid);
+		if(localStorage.userid===undefined){
+			$location.path('/login');
 		}
 		// Define user empty data :/
       $scope.user = {};
@@ -124,6 +125,9 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           	$scope.logged = true;
             $scope.me(1);
             $scope.friends();
+            if(localStorage.userid!==undefined){
+            	$location.path('/receipts');
+            }
           }
         },{ scope: 'email' });
        };
@@ -177,12 +181,12 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
        */
       $rootScope.logout = function() {
               console.log("hello world");
-        Facebook.logout(function() {
-          $scope.$apply(function() {
+        	Facebook.logout(function() {
+          	$scope.$apply(function() {
             $scope.user   = {};
             $scope.friends = {};
             $scope.logged = false;
-          
+          	alert(localStorage.userid);
           
           });
 
@@ -203,8 +207,8 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.byebye     = false;
             localStorage.userid = data.authResponse.userID;
             //console.log(localStorage.friends);
-            if(localStorage.userid!=null){
-            	$location.path('/receipts');
+            if(localStorage.userid!==undefined){
+            	//$location.path('/receipts');
             }
 
           });
