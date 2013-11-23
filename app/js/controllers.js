@@ -356,6 +356,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_add.php',data)
 			.success(function(response,status){
 				console.log(response);
+				alert("Receipt Added!");
 			})
 			.error(function(response, status) {
      		// this isn't happening:
