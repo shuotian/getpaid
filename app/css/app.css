@@ -7,77 +7,149 @@
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-*
-{
-  font-family: "Open Sans", sans-serif;
-}
+/**{font-family: "Open Sans", sans-serif;}*/
 
-.menu 
-{
+.menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
 
-.menu:before 
-{
+.menu:before {
   content: "[";
 }
 
-.menu:after 
-{
+.menu:after {
   content: "]";
 }
 
-.menu > li 
-{
+.menu > li {
   display: inline;
 }
 
-.menu > li:before 
-{
+.menu > li:before {
   content: "|";
   padding-right: 0.3em;
 }
 
-.menu > li:nth-child(1):before 
-{
+.menu > li:nth-child(1):before {
   content: "";
   padding: 0;
 }
 
 /* Header bar styling */
 /* Content */
-.content
-{
+.content {
   margin-top: 50px;
   padding: 0 10px 0 10px;
 }
 
-.navbar navbar-fixed-top center
-{
+.navbar navbar-fixed-top center {
   padding: 0 10px 0 10px;
 }
 
 /* Owed payments classes */
 
-.unpaid
-{
+.unpaid {
   background-color: red;
   color: black;
   padding: 0 0 0 10px;
   height: 50px;
 }
 
-.fullyPaid
-{
+.fullyPaid {
   background-color: green;
   color: white;
   padding: 0 0 0 10px;
   height: 50px;
 }
 
-#welcomeuser{
+#welcomeuser {
   
+}
+
+/**
+* The following code will override Boostrap
+* Sample:
+* <button type="button" class="btn btn-ttc">Save changes</button>
+* .btn-ttc,
+* .btn-ttc:hover,
+* .btn-ttc:active {
+* color: white;
+* text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+* background-color: #007da7;
+* }
+*/
+
+.jumbotron-gp {
+  background-image: url("../img/blur.jpg");
+  height: 650px;
+  color: #FFFFFF;
+  padding: -10px 0 0 0;
+}
+
+.h1-gp, .p-gp {
+  text-shadow:2px 2px 10px #808080;
+}
+
+.navbar-brand-gp {
+  margin: -10px 0 0 -15px;
+}
+
+/* Transparencies */
+.alpha50-255-255-255 {
+  background-color:rgba(255,255,255,0.5);
+}
+
+/* Font Overrides */
+.font-override-OpenSans {
+  font-family: "Open Sans", sans-serif;
+}
+
+.amp {
+  opacity: 0.7;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  filter: alpha(opacity=70);
+  font-style: italic;
+  font-family: baskerville, palatino, georgia, serif;
+  font-weight: normal;
+}
+
+/* Footer */
+.footer {
+  font-size: 0.9em;
+  text-align: center;
+  color: #888;
+  padding: 0 0 40px 0;
+}
+.footer p {
+  margin: 20px 0;
+}
+.footer strong {
+  font-weight: bold;
+  color: #444;
+}
+.footer em,
+.footer em a {
+  color: #444;
+}
+.footer a {
+  color: #999;
+  border-bottom: dotted 1px #ccc;
+}
+.footer a:hover {
+  color: #55acee;
+}
+.footer .logo-footer {
+  opacity: 0.3;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  filter: alpha(opacity=30);
+  margin: 40px 0 -10px 0;
+}
+.footer .amp {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  margin: 0 2px;
 }
