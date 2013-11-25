@@ -46,7 +46,7 @@ getpaidControllers.factory('receiptDetailSvc', function($http) {
 
 getpaidControllers.config(['FacebookProvider',
 	function(FacebookProvider){
-		var myAppId = '689634554394247';
+		var myAppId = '178741542323645';
 		 FacebookProvider.init(myAppId);
 	}]);
 
