@@ -1,65 +1,88 @@
- <!-- Navbar -->
- <div class="navbar navbar-fixed-top center">
- 	<div class="navbar-inner">
- 		<div class="container">
- 			<a class="brand" href="#/page/home">Add Receipt</a>
- 			<ul class="nav">
- 				<li ng-class="{active: slug == 'add'}"><a href="#/receipts/add">Add</a></li>
- 				<li ng-class="{active: slug == 'back'}"><a href="#/receipts/">Back</a></li>
- 			</ul>
- 		</div>
- 	</div>
- </div>
+<div class="container">	
+	<!-- NAVIGATION -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
+				<img data-src="../img/logo-monogram.png" width="102" height="34" src="../img/logo-monogram.png" class="logo-footer">
+			</a>
+		</div>
+	    
+	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
+	  	<ul class="nav navbar-nav navbar-right">
+	      <li ng-class="{active: slug == 'add'}">
+	      	<a href="#/receipts/add">Add</a>
+	      </li>
+	      
+	      <li ng-class="{active: slug == 'back'}">
+	      	<a href="#/receipts/">Back</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
 
- <form name="myForm">
- 	Store Name: <input type="text" ng-model="form.storename" required/> <br/><br/>
- 	Date: <input type="date" ng-model="form.receiptDate" required/> <br/><br/>
- 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt','1')">Yes
- 	<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt','0')">No<br/>
- 	<!--Displays the items in the current newReceipt model-->
- 	<label>Items:</label>
- 	<div ng-repeat="item in form.items">
- 		{{item.name}} - ${{item.cost}}[ <a href="" ng-click="removeItem($index)">X</a> ]
- 	</div>
+	<form name="myForm">
+		Store Name: <input type="text" ng-model="form.storename" required/>
+		<br/><br/>
+	 	Date: <input type="date" ng-model="form.receiptDate" required/>
+	 	<br/><br/>
+	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt','1')">
+	 	Yes<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt','0')">
+	 	No
+	 	<br/>
+	 	<!--Displays the items in the current newReceipt model-->
+	 	<label>Items:</label>
+	 	<div ng-repeat="item in form.items">
+	 		{{item.name}} - ${{item.cost}}[ <a href="" ng-click="removeItem($index)">X</a> ]
+	 	</div>
 
- 	<!--Display input fields for adding details of each item to the newItem model-->
- 	<div>Item Name: <input type="text" ng-model="newItem.name" /></div><br/>
- 	<div>Quantity: <input type="number" ng-model="newItem.quantity" /></div><br/>
- 	<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>
- 	Shared: <input type="radio" ng-model="newItem.shared" value = "1" ng-change="receiptPaid('item','Yes')">Yes
- 	<input type="radio" ng-model="newItem.shared" value = "0" ng-change="receiptPaid('item','No')">No<br/>
+	 	<!--Display input fields for adding details of each item to the newItem model-->
+	 	<div>Item Name: <input type="text" ng-model="newItem.name" /></div><br/>
+	 	<div>Quantity: <input type="number" ng-model="newItem.quantity" /></div><br/>
+	 	<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>
+	 	Shared: <input type="radio" ng-model="newItem.shared" value = "1" ng-change="receiptPaid('item','Yes')">Yes
+	 	<input type="radio" ng-model="newItem.shared" value = "0" ng-change="receiptPaid('item','No')">No<br/>
 
- 	<!--Displays fields to add shared users to the item if the item is shared by someone else-->
- 	<div ng-show="newItem.shared">
- 		<label>User(s):</label>
- 		<div ng-repeat="user in newItem.users">
- 		<!--Displays the user(s) for the current shared item in newItem-->
- 			<div>{{user}}[ <a href="" ng-click="removeItem($index)">X</a> ]</div>
- 		</div>
- 		<div>Shared User: <input type="text" ng-model="payer"/></div><br/>
- 		<div ng-model="payerid" ng-show="hidden"></div>
- 	<!--Displays a list of facebook friends-->	
- 	<div ng-show="payer.length">	
- 		<table id="searchTextResults">
-      <tr><th>FB id</th><th>Name</th></tr>
-      <tr ng-repeat="friend in friends.data | filter:payer">
-        <td>{{friend.id}}</td>
-        <td ng-click="attach(friend.name, friend.id)">{{friend.name}}</td>
-      </tr>
-    </table>
-    </div>
- 		[ <a href="" ng-click="addSharedUser(newItem,payer,payerid)">add this user</a> ]
- 	</div>
+	 	<!--Displays fields to add shared users to the item if the item is shared by someone else-->
+	 	<div ng-show="newItem.shared">
+	 		<label>User(s):</label>
+	 		<div ng-repeat="user in newItem.users">
+	 		<!--Displays the user(s) for the current shared item in newItem-->
+	 			<div>{{user}}[ <a href="" ng-click="removeItem($index)">X</a> ]</div>
+	 		</div>
+	 		<div>Shared User: <input type="text" ng-model="payer"/></div><br/>
+	 		<div ng-model="payerid" ng-show="hidden"></div>
+	 	<!--Displays a list of facebook friends-->	
+	 	<div ng-show="payer.length">	
+	 		<table id="searchTextResults">
+	      <tr><th>FB id</th><th>Name</th></tr>
+	      <tr ng-repeat="friend in friends.data | filter:payer">
+	        <td>{{friend.id}}</td>
+	        <td ng-click="attach(friend.name, friend.id)">{{friend.name}}</td>
+	      </tr>
+	    </table>
+	    </div>
+	 		[ <a href="" ng-click="addSharedUser(newItem,payer,payerid)">add this user</a> ]
+	 	</div>
 
- 	[ <a href="" ng-click="addItem(newItem)">add item</a> ]
- 	<br/>
- </form>
- 
- <button ng-click="cancel()" >Cancel</button>
- <button ng-click="save()" >Save</button>
+	 	[ <a href="" ng-click="addItem(newItem)">add item</a> ]
+		<br/>
+	</form>
+	 
+	<button ng-click="cancel()" >Cancel</button>
+	<button ng-click="save()" >Save</button>
 
- <hr/>
- Debug View:
- <pre>form={{form}} payer ={{payer}}<br/>
- master={{master}}
- </pre>
+	<br/>
+
+	Debug View:
+	<pre>
+	form={{form}} payer ={{payer}}
+	<br/>
+	master={{master}}
+	</pre>
+</div>
