@@ -13,9 +13,9 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 		console.log("user id is null");
 		$location.path('/login');
 	}
-	/*else{
+	else{
 		$location.path('/receipts');
-	}*/
+	}
 		
 	
 });
@@ -108,10 +108,17 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           if (response.status == 'connected') {
             $scope.logged = true;
             $scope.me(0);
-            $scope.friends(); 
+            $scope.friends();
+            localStorage.loggedin = true;
+            var delay = 1000;
+            setTimeout(function(){
+            	$location.path('/receipts');
+            },delay);
+            
           }
           else
             $scope.login();
+
         });
       };
       
@@ -125,9 +132,11 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
           	$scope.logged = true;
             $scope.me(1);
             $scope.friends();
-            if(localStorage.userid!==undefined){
+            localStorage.loggedin = true;
+            var delay = 1000;
+            setTimeout(function(){
             	$location.path('/receipts');
-            }
+            },delay);
           }
         },{ scope: 'email' });
        };
@@ -207,8 +216,8 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.byebye     = false;
             localStorage.userid = data.authResponse.userID;
             //console.log(localStorage.friends);
-            if(localStorage.userid!==undefined){
-            	//$location.path('/receipts');
+            if(localStorage.loggedin==true){
+            	$location.path('/receipts');
             }
 
           });
