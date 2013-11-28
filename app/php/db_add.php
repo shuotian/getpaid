@@ -27,16 +27,22 @@ if(isset($storeName, $receiptDate, $paid, $total, $shared)){
 	//adds item to the items table based on the new receipt id.
 	//iterates through the items list and append each item to a query which we will add to a multiquery
 	foreach($items as $item){
-		//get the payer's id and name and store it in payers table
-		foreach($item->users as $payer){
-			if(isset($newReceiptId,$payer->id,$payer->name)){
-				$payerQuery = "INSERT INTO Payers (payerNumber, payerName) VALUES ('$payer->id', '$payer->name')";
-				mysqli_query($dbConnection,$payerQuery);
-			}
-		}
 
-		if(isset($newReceiptId, $item->quantity, $item->cost, $payer->id)){
-			$multiquery .= "INSERT INTO Item (name, receiptId, itemId, numberOfItems, cost, payerNumber, paid) VALUES ('$item->name', '$newReceiptId', NULL, '$item->quantity','$item->cost', '$payer->id', 0);";
+		//checks if there is any payer in the array
+		if(sizeof($item->users)==0){
+			$multiquery .= "INSERT INTO Item (name, receiptId, itemId, numberOfItems, cost, payerNumber, paid) VALUES ('$item->name', '$newReceiptId', NULL, '$item->quantity','$item->cost', 0, 1);";
+		}
+		else{
+			//get the payer's id and name and store it in payers table
+			foreach($item->users as $payer){
+				if(isset($newReceiptId,$payer->id,$payer->name)){
+					$payerQuery = "INSERT INTO Payers (payerNumber, payerName) VALUES ('$payer->id', '$payer->name')";
+					mysqli_query($dbConnection,$payerQuery);
+				}
+				if(isset($newReceiptId, $item->quantity, $item->cost, $payer->id)){
+				$multiquery .= "INSERT INTO Item (name, receiptId, itemId, numberOfItems, cost, payerNumber, paid) VALUES ('$item->name', '$newReceiptId', NULL, '$item->quantity','$item->cost', '$payer->id', 0);";
+				}
+			}
 		}
 	}
 mysqli_multi_query($dbConnection, $multiquery);

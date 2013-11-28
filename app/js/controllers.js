@@ -423,7 +423,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			}
 			item.users.push(payer);
 			$scope.payer='';
-			$scope.pyerid = '';
+			$scope.payerid = '';
 		};
 
 		$scope.removeItem = function(index) {
