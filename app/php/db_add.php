@@ -36,7 +36,7 @@ if(isset($storeName, $receiptDate, $paid, $total, $shared)){
 		}
 
 		if(isset($newReceiptId, $item->quantity, $item->cost)){
-			$multiquery .= "INSERT INTO Item (name, receiptId, itemId, numberOfItems, cost, payerNumber) VALUES ('$item->name', '$newReceiptId', NULL, '$item->quantity','$item->cost', '$payer->id');";
+			$multiquery .= "INSERT INTO Item (name, receiptId, itemId, numberOfItems, cost, payerNumber, paid) VALUES ('$item->name', '$newReceiptId', NULL, '$item->quantity','$item->cost', '$payer->id', 0);";
 		}
 	}
 mysqli_multi_query($dbConnection, $multiquery);

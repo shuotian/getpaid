@@ -64,6 +64,13 @@
   padding: 0 0 0 10px;
   height: 50px;
 }
+.itemPaid{
+  text-decoration:line-through;
+}
+
+.itemUnpaid{
+  text-decoration: none;
+}
 
 #welcomeuser {
   

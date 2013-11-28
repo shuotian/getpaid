@@ -14,7 +14,7 @@ getpaidControllers.run(function($rootScope,$location, Facebook){
 		$location.path('/login');
 	}
 	else{
-		$location.path('/receipts');
+	//	$location.path('/receipts');
 	}
 		
 	
@@ -290,8 +290,8 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 }]);
 
 //changes the view to the detailed receipt view based on the receiptId
-getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDetailSvc', '$location',
-	function($scope, $routeParams, receiptDetailSvc, $location){
+getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDetailSvc', '$location','$http',
+	function($scope, $routeParams, receiptDetailSvc, $location,$http){
 
 		$scope.receiptId = $routeParams.receiptId;
 		var receiptId = $scope.receiptId;
@@ -301,7 +301,7 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 				$scope.total = 0;
 				return;
 			}
-			//iterates through the array of receipts, if our receiptid matches the receiptid found in the array, use that receipt
+			
 			$scope.receipt = data;
 			var total = 0;
 			for(var i =0; i < data.length; i++){
@@ -310,10 +310,29 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 			console.log(total);
 			$scope.total = total;
 			console.log($scope.receipt);
+			$scope.updatePaidData = {
+				receiptId:0,
+				paid:[]
+			};
 		});
-		$scope.edit = function(id){
-			$location.path('/receipts/edit/'+id);
-			//alert("change path" + id);
+		//function to update db on who have paid in full.
+		$scope.save = function(){
+			//$location.path('/receipts/edit/'+id);
+			var loc = document.location.href;
+			var id = loc.substring(loc.lastIndexOf("/")+1,loc.length);
+			$scope.updatePaidData.receiptId = id;
+			var data = $scope.updatePaidData;
+			console.log(data);
+			$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_update_receipt.php',data)
+				.success(function(response,status){
+					console.log(response);
+					alert("Receipt Updated!");
+				})
+				.error(function(response, status) {
+     			// this isn't happening:
+     			console.log(response);
+   				});
+
 		}
 		$scope.sendFbMsg = function(payerId){
 			FB.ui({
@@ -321,6 +340,18 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
   			link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
   			to:payerId
 			});
+		}
+		$scope.clearpayer = function(payerNumber, itemid){
+			//id of the checkbox binded to the name of the payer for this particular item in the receipt
+			var checkbox = '#check' + payerNumber.toString();
+			var payer = "payer"+payerNumber.toString();
+			if($(checkbox).is(':checked')) {
+				document.getElementById(payer).style.textDecoration = 'line-through';
+				$scope.updatePaidData.paid.push(itemid);
+			}
+			else{
+				document.getElementById(payer).style.textDecoration = 'none';
+			}
 		}
 
 	}]);
