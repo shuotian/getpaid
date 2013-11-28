@@ -31,8 +31,8 @@
 		<br/><br/>
 	 	Date: <input type="date" ng-model="form.receiptDate" required/>
 	 	<br/><br/>
-	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt','1')">
-	 	Yes<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt','0')">
+	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
+	 	Yes<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt',0)">
 	 	No
 	 	<br/>
 	 	<!--Displays the items in the current newReceipt model-->

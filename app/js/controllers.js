@@ -432,8 +432,8 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 
 		//by default if it is a shared receipt, paid will be set as false and vice versa.
 		$scope.receiptPaid = function(obj, value){
-			if(obj=="item"){
-				if(value === 'Yes'){
+			if(obj=="receipt"){
+				if(value === 1){
 					$scope.form.paid = 0;
 				}
 				else{
