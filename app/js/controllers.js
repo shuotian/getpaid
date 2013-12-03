@@ -1,4 +1,4 @@
-var getpaidControllers = angular.module('getpaidControllers', ['facebook']);
+var getpaidControllers = angular.module('getpaidControllers', ['facebook','googleChartWrap']);
 /*
  * Session variables used:
  * localStorage.userid - stores current user id
@@ -41,8 +41,6 @@ getpaidControllers.factory('receiptDetailSvc', function($http) {
 		}
 	}
 });
-
-
 
 getpaidControllers.config(['FacebookProvider',
 	function(FacebookProvider){
@@ -459,8 +457,19 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 
 
 //Controller for Stats Page ***Advanced Feature***
+/**TODO update controller so that it populates the pie graph with proper receipt data.**/
 getpaidControllers.controller('StatsCtrl',['$scope',
 	function($scope){
+		$scope.coffeeData = [{
+        "name": "Starbucks",
+            "votes": 36
+    }, {
+        "name": "Costa",
+            "votes": 34
+    }, {
+        "name": "Coffee Bean",
+            "votes": 30
+    }];
 
 	}]);
 
