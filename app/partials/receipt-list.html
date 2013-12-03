@@ -9,12 +9,20 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
-				<img data-src="../img/logo-monogram.png" width="102" height="34" src="../img/logo-monogram.png" class="logo-footer">
+				<img data-src="img/logo-monogram.png" width="102" height="34" src="img/logo-monogram.png" class="logo-footer">
 			</a>
 		</div>
 	    
 	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
 	  	<ul class="nav navbar-nav navbar-right">
+	  	  <li ng-class="{active: slug == 'add'}">
+	      	<a href="#/about">About</a>
+	      </li>
+
+	  	  <li ng-class="{active: slug == 'add'}">
+	      	<a href="#/receipts/stats">Stats</a>
+	      </li>
+
 	      <li ng-class="{active: slug == 'add'}">
 	      	<a href="#/receipts/add">Add</a>
 	      </li>

@@ -453,7 +453,10 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 		$scope.cancel();
 	}]);
 
-	//TODO Add edit controller
+getpaidControllers.controller('AboutCtrl',['$scope',
+	function($scope){
+
+	}]);
 
 //Miscellaneous functions
 //function to retrieve the total expenditure for the month.
