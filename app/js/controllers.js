@@ -235,7 +235,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
       });
 	}]);
 
-//loads all the receipts in the main page
+//Controller for main page. loads all the receipts in the main page
 getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receiptDataSvc','$http',
 	function($scope,$location,receiptDataSvc, $http) {
 		console.log(localStorage.userid);
@@ -251,7 +251,9 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 
 		//console.log(localStorage.friends);
     //to be directed to detailed receipt page when a receipt is clicked on the main page
-    $scope.receiptClicked = function(receiptId){
+    $scope.receiptClicked = function(receiptId, receiptStore, receiptDate){
+    	sessionStorage.storename = receiptStore;
+    	sessionStorage.receiptDate = receiptDate;
     	$location.path('/receipts/'+receiptId.toString());
     }
 
@@ -289,11 +291,13 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 
 }]);
 
-//changes the view to the detailed receipt view based on the receiptId
+//Controller for a detailed receipt. changes the view to the detailed receipt view based on the receiptId
 getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDetailSvc', '$location','$http',
 	function($scope, $routeParams, receiptDetailSvc, $location,$http){
 
 		$scope.receiptId = $routeParams.receiptId;
+		$scope.storename = sessionStorage.storename;
+		$scope.boughtDate = sessionStorage.receiptDate;
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
 		receiptDetailSvc.getDetails(receiptId).then(function(data){
@@ -453,6 +457,14 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 		$scope.cancel();
 	}]);
 
+
+//Controller for Stats Page ***Advanced Feature***
+getpaidControllers.controller('StatsCtrl',['$scope',
+	function($scope){
+
+	}]);
+
+//Controller for about page if any...
 getpaidControllers.controller('AboutCtrl',['$scope',
 	function($scope){
 

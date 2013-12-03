@@ -103,6 +103,14 @@
 .navbar-brand-gp {
   margin: -10px 0 0 -15px;
 }
+#item-Storename {
+text-align: center;
+width: 70%;
+position: absolute;
+display:inline-block;
+top: 6px;
+font-size: 20pt;
+}
 
 /* Transparencies */
 .alpha50-255-255-255 {
