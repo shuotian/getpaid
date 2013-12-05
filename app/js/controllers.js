@@ -42,6 +42,17 @@ getpaidControllers.factory('receiptDetailSvc', function($http) {
 	}
 });
 
+//Service which returns the details of current receipt
+getpaidControllers.factory('allItemSvc', function($http) {
+	return {
+		getDetails: function(value) {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_receipt_details.php',{params:{userid:localStorage.userid}}).then(function(result) {
+				return result.data;
+			});
+		}
+	}
+});
+
 getpaidControllers.config(['FacebookProvider',
 	function(FacebookProvider){
 		var myAppId = '178741542323645';
@@ -378,11 +389,23 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			users:[]
 		};
 
+		//gets a list of facebook friends
 		var friends = {
 			data:JSON.parse(localStorage.friends)
 		}
 		$scope.friends = friends;
 		console.log($scope.friends);
+
+		//gets a list of all the items u have bought so far, help to standardize and autocomplete the items.
+		$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_update_receipt.php',data)
+				.success(function(response,status){
+					console.log(response);
+					alert("Receipt Updated!");
+				})
+				.error(function(response, status) {
+     			// this isn't happening:
+     			console.log(response);
+   				});
 		
 		//resets the form to the default settings
 		$scope.cancel = function() {
@@ -458,8 +481,17 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 
 //Controller for Stats Page ***Advanced Feature***
 /**TODO update controller so that it populates the pie graph with proper receipt data.**/
-getpaidControllers.controller('StatsCtrl',['$scope',
-	function($scope){
+getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
+	function($scope,receiptDataSvc){
+		var arr = [];
+		var d = new Date();
+		var currentMth = d.getMonth(); //month ranges from 0 to 11
+		receiptDataSvc.getReceipts().then(function(data){
+			for(var ob in data){
+				if(data[ob].receiptDate)
+			}
+		});
+
 		$scope.coffeeData = [{
         "name": "Starbucks",
             "votes": 36

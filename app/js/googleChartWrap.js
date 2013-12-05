@@ -15,14 +15,13 @@ angular.module('googleChartWrap', [])
  
                     var options = {
                         title: $attr.title,
-                        height: $attr.height,
-                        width: $attr.width,
+                        pieSliceText: 'label',
                         legend: 'right'
                     };
  
                     //render the desired chart based on the type attribute provided
                     var chart;
-                    chart = new google.visualization.PieChart($elm[0]);   
+                    chart = new google.visualization.PieChart(document.getElementById('piechart'));   
                     chart.draw(data, options);
                 });
             }
