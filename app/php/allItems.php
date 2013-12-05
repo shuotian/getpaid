@@ -8,7 +8,9 @@ $query = "SELECT distinct name from Item,Receipt WHERE (userId = '$userID') AND 
 $result = mysqli_query($dbConnection, $query);
 
 while($row = mysqli_fetch_array($result)){
-	array_push($outputArray,array('name'=>$row[0]);
+	array_push($outputArray,array('name'=>$row[0]));
 }
-json_encode($outputArray);
+
+//outputs an array of json objects of all items the user bought
+echo json_encode($outputArray);
 ?>

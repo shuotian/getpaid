@@ -42,11 +42,11 @@ getpaidControllers.factory('receiptDetailSvc', function($http) {
 	}
 });
 
-//Service which returns the details of current receipt
+//Service which returns all the items the user has bought before
 getpaidControllers.factory('allItemSvc', function($http) {
 	return {
-		getDetails: function(value) {
-			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_receipt_details.php',{params:{userid:localStorage.userid}}).then(function(result) {
+		getItems: function() {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -370,8 +370,8 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 	}]);
 
 //Controller to create a new receipt and add it to the database
-getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
-	function($scope,$http){
+getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
+	function($scope,$http,allItemSvc){
 		var master = {
 			storename:'',
 			receiptDate:'',
@@ -389,23 +389,22 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			users:[]
 		};
 
+		var arr = [];
+
+		allItemSvc.getItems().then(function(data){
+			for(var i = 0; i < data.length;i++){
+				arr[i] = data[i].name;
+			}
+			$scope.names = arr;
+		});
+		//console.log(arr);
+
 		//gets a list of facebook friends
 		var friends = {
 			data:JSON.parse(localStorage.friends)
 		}
 		$scope.friends = friends;
 		console.log($scope.friends);
-
-		//gets a list of all the items u have bought so far, help to standardize and autocomplete the items.
-		$http.post('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_update_receipt.php',data)
-				.success(function(response,status){
-					console.log(response);
-					alert("Receipt Updated!");
-				})
-				.error(function(response, status) {
-     			// this isn't happening:
-     			console.log(response);
-   				});
 		
 		//resets the form to the default settings
 		$scope.cancel = function() {
@@ -455,6 +454,10 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			$scope.form.items.splice(index, 1);
 		};
 
+		$scope.removeUser = function(index) {
+			$scope.newItem.users.splice(index,1);
+		};
+
 		//by default if it is a shared receipt, paid will be set as false and vice versa.
 		$scope.receiptPaid = function(obj, value){
 			if(obj=="receipt"){
@@ -474,7 +477,12 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http',
 			$scope.payer = value;
 			$scope.payerid = id;
 		};
-
+		$scope.allitems=function(){
+			return $scope.items;
+		}
+		$scope.attachitem=function(value){
+			$scope.newItem.name = value;
+		}
 		$scope.cancel();
 	}]);
 
@@ -486,9 +494,10 @@ getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 		var arr = [];
 		var d = new Date();
 		var currentMth = d.getMonth(); //month ranges from 0 to 11
-		receiptDataSvc.getReceipts().then(function(data){
+		//data is an array of json objects
+		allItemSvc.getItems().then(function(data){
 			for(var ob in data){
-				if(data[ob].receiptDate)
+			//	if(data[ob].receiptDate)
 			}
 		});
 
