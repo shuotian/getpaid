@@ -434,6 +434,8 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
 		};
 
 		$scope.addItem = function(newitem) {
+			//capitalize the item name so that it is standardized
+			newitem.name = newitem.name.charAt(0).toUpperCase() + newitem.name.slice(1);
 			$scope.form.items.push(newitem);
 			$scope.form.total+=parseFloat(newitem.cost);
 			$scope.newItem = angular.copy(resetNewItemFd);
