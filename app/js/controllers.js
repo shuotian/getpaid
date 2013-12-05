@@ -1,3 +1,8 @@
+/**
+* Name: GetPaid Controllers
+* Authors: Joshua Heng
+*/
+
 var getpaidControllers = angular.module('getpaidControllers', ['facebook','googleChartWrap']);
 /*
  * Session variables used:
@@ -27,26 +32,19 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_get.php',{params:{userid:localStorage.userid}}).then(function(result) {
 				return result.data;
 			});
-		}
-	}
-});
-
-//Service which returns the details of current receipt
-getpaidControllers.factory('receiptDetailSvc', function($http) {
-	return {
+		},
 		getDetails: function(value) {
 			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/db_receipt_details.php',{params:{userid:localStorage.userid,receiptid:value}}).then(function(result) {
 				return result.data;
 			});
-		}
-	}
-});
-
-//Service which returns all the items the user has bought before
-getpaidControllers.factory('allItemSvc', function($http) {
-	return {
+		},
 		getItems: function() {
 			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid}}).then(function(result) {
+				return result.data;
+			});
+		},
+		getShopNamesAndCost: function(value) {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid, itemName:value}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -301,15 +299,15 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 }]);
 
 //Controller for a detailed receipt. changes the view to the detailed receipt view based on the receiptId
-getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDetailSvc', '$location','$http',
-	function($scope, $routeParams, receiptDetailSvc, $location,$http){
+getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'receiptDataSvc', '$location','$http',
+	function($scope, $routeParams, receiptDataSvc, $location,$http){
 
 		$scope.receiptId = $routeParams.receiptId;
 		$scope.storename = sessionStorage.storename;
 		$scope.boughtDate = sessionStorage.receiptDate;
 		var receiptId = $scope.receiptId;
 		console.log(receiptId);
-		receiptDetailSvc.getDetails(receiptId).then(function(data){
+		receiptDataSvc.getDetails(receiptId).then(function(data){
 			if(data.length==0){
 				$scope.total = 0;
 				return;
@@ -370,8 +368,8 @@ getpaidControllers.controller('ReceiptDetailCtrl',['$scope','$routeParams', 'rec
 	}]);
 
 //Controller to create a new receipt and add it to the database
-getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
-	function($scope,$http,allItemSvc){
+getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc',
+	function($scope,$http,receiptDataSvc){
 		var master = {
 			storename:'',
 			receiptDate:'',
@@ -391,7 +389,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
 
 		var arr = [];
 
-		allItemSvc.getItems().then(function(data){
+		receiptDataSvc.getItems().then(function(data){
 			for(var i = 0; i < data.length;i++){
 				arr[i] = data[i].name;
 			}
@@ -493,18 +491,42 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
 /**TODO update controller so that it populates the pie graph with proper receipt data.**/
 getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 	function($scope,receiptDataSvc){
-		
+		$scope.allItems = [
+    		{name:'black', shade:'dark'},
+    		{name:'white', shade:'light'},
+    		{name:'red', shade:'dark'},
+    		{name:'blue', shade:'dark'},
+    		{name:'yellow', shade:'light'}
+  		];
+  		$scope.currentItem = $scope.allItems[2]; // red
+
 
 		$scope.coffeeData = [{
-        "name": "Starbucks",
-            "votes": 36
+        "Store": "Starbucks",
+            "Cost": 36
     }, {
-        "name": "Costa",
-            "votes": 34
+        "Store": "Costa",
+            "Cost": 34
     }, {
-        "name": "Coffee Bean",
-            "votes": 30
+        "Store": "Coffee Bean",
+            "Cost": 30
     }];
+
+    $scope.al=function(param){
+    	console.log(param.name);
+    	$scope.currentItem = param;
+    	receiptDataSvc.getShopNamesAndCost();
+    	$scope.coffeeData = [{
+        "Store": "Something else",
+            "Cost": 50
+    	}, {
+        	"Store": "Cdfdf",
+     	       "Cost": 20
+   		}, {
+   	    	"Store": "Csdfsdan",
+            	"Cost": 80
+   			}];
+    	}
 
 	}]);
 

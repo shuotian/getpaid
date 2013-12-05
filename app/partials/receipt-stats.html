@@ -23,7 +23,8 @@
 	  </div>
 	</nav>
 
-
-<div id = "piechart" google-chart data="coffeeData" type="PieChart" title="Most Popular Coffee Chains" style="width: 900px; height: 500px;"></div>
+<div>Item: <select ng-model="currentItem" ng-options="item.name for item in allItems" ng-click="al(currentItem)"></select></div><br>
+<div id = "piechart" google-chart data="coffeeData" type="PieChart" title="{{currentItem.name}}" style="width: 900px; height: 500px;"></div>
+<div>{{currentItem.name}}</div>
 
 </div>
