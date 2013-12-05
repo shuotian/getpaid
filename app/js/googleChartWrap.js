@@ -21,7 +21,7 @@ angular.module('googleChartWrap', [])
  
                     //render the desired chart based on the type attribute provided
                     var chart;
-                    chart = new google.visualization.PieChart(document.getElementById('piechart'));   
+                    chart = new google.visualization.BarChart(document.getElementById('piechart'));   
                     chart.draw(data, options);
                 });
             }

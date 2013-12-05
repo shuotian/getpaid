@@ -493,15 +493,7 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','allItemSvc',
 /**TODO update controller so that it populates the pie graph with proper receipt data.**/
 getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 	function($scope,receiptDataSvc){
-		var arr = [];
-		var d = new Date();
-		var currentMth = d.getMonth(); //month ranges from 0 to 11
-		//data is an array of json objects
-		allItemSvc.getItems().then(function(data){
-			for(var ob in data){
-			//	if(data[ob].receiptDate)
-			}
-		});
+		
 
 		$scope.coffeeData = [{
         "name": "Starbucks",
