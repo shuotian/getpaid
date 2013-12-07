@@ -551,8 +551,8 @@ getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 				console.log(minDate);
 				console.log(temp);
 				$scope.coffeeData = temp;
-   				$scope.minDate = minDate;
-   				$scope.maxDate = maxDate;
+   				$scope.minDate = convertDate(minDate);
+   				$scope.maxDate = convertDate(maxDate);
 				
 			});
 		});
@@ -604,9 +604,9 @@ getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 				console.log(minDate);
 				console.log(temp);
 				$scope.coffeeData = temp;
-				$scope.minDate = minDate;
-   				$scope.maxDate = maxDate;
-   			
+				$scope.minDate = convertDate(minDate);
+   				$scope.maxDate = convertDate(maxDate);
+
 				
 			});
     	}
@@ -628,4 +628,25 @@ function getTotal(data){
 		total+=parseFloat(data[key].amount);
 	}
 	return total;
+}
+
+function convertDate(data){
+	console.log(data);
+	var tokens = data.split("-");
+	var month;
+	if(tokens[1]==1) month = "Jan";
+	if(tokens[1]==2) month = "Feb";
+	if(tokens[1]==3) month = "Mar";
+	if(tokens[1]==4) month = "Apr";
+	if(tokens[1]==5) month = "May";
+	if(tokens[1]==6) month = "Jun";
+	if(tokens[1]==7) month = "Jul";
+	if(tokens[1]==8) month = "Aug";
+	if(tokens[1]==9) month = "Sep";
+	if(tokens[1]==10) month = "Oct";
+	if(tokens[1]==11) month = "Nov";
+	if(tokens[1]==12) month = "Dec";
+	console.log(tokens[2] + " "+ month +" "+ tokens[0]);
+	return tokens[2] + " "+ month +" "+ tokens[0];
+	
 }
