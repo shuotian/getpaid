@@ -44,7 +44,7 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 			});
 		},
 		getShopNamesAndCost: function(value) {
-			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid, itemName:value}}).then(function(result) {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/item_shopAndCost.php',{params:{userid:localStorage.userid, itemName:value}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -491,41 +491,124 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 /**TODO update controller so that it populates the pie graph with proper receipt data.**/
 getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 	function($scope,receiptDataSvc){
-		$scope.allItems = [
-    		{name:'black', shade:'dark'},
-    		{name:'white', shade:'light'},
-    		{name:'red', shade:'dark'},
-    		{name:'blue', shade:'dark'},
-    		{name:'yellow', shade:'light'}
-  		];
-  		$scope.currentItem = $scope.allItems[2]; // red
+		
+  		
+  		var arr = [];
+  		//console.log($scope.allItems);
+		$scope.coffeeData = [];
+		var newData = [];
+		//var temp = [];
+  		//loads all the items in the dropdown list
+		receiptDataSvc.getItems().then(function(data){
+			for(var i = 0; i < data.length;i++){
+				arr[i] = {name:data[i].name};
+			}
+			$scope.allItems = arr;
+			$scope.currentItem = $scope.allItems[5]; // Beer
+			//console.log($scope.currentItem.name);	
+			
+			//gets the stats for our default selection, Beer
+			receiptDataSvc.getShopNamesAndCost($scope.currentItem.name).then(function(data){
+				console.log(data);
+				var maxDate;
+				var minDate;
+				for(var i = 0; i < data.length; i++){
+					var shopName = data[i].storeName;
+					if(newData[shopName]!=null){
+						if(newData[shopName].receiptDate > data[i].receiptDate){
+							continue;
+						}
+						else{
+							newData[shopName]={receiptDate:data[i].receiptDate, cost:data[i].cost};
+							continue;
+						}
+					}
+					else
+						newData[shopName]={receiptDate:data[i].receiptDate, cost:data[i].cost};
+				}//end of for loop with associative array
 
-
-		$scope.coffeeData = [{
-        "Store": "Starbucks",
-            "Cost": 36
-    }, {
-        "Store": "Costa",
-            "Cost": 34
-    }, {
-        "Store": "Coffee Bean",
-            "Cost": 30
-    }];
+				//converts associative array to array of json objects
+				var temp = [];
+				var maxDate = 0000-00-00;
+				var minDate = 0000-00-00;
+				for(var key in newData){
+					maxDate = newData[key].receiptDate;
+					minDate = newData[key].receiptDate;
+					break;
+				}
+				for(var key in newData){
+					temp.push({"Store":key, "Cost": parseFloat(newData[key].cost), "iDate":newData[key].receiptDate});
+					console.log(newData[key].receiptDate);
+					var curDate = newData[key].receiptDate;
+					if(curDate > maxDate){
+						maxDate = curDate;
+					}
+					if(curDate < minDate){
+						minDate = curDate;
+					}
+				}
+				console.log(maxDate);
+				console.log(minDate);
+				console.log(temp);
+				$scope.coffeeData = temp;
+   				$scope.minDate = minDate;
+   				$scope.maxDate = maxDate;
+				
+			});
+		});
+		
 
     $scope.al=function(param){
-    	console.log(param.name);
-    	$scope.currentItem = param;
-    	receiptDataSvc.getShopNamesAndCost();
-    	$scope.coffeeData = [{
-        "Store": "Something else",
-            "Cost": 50
-    	}, {
-        	"Store": "Cdfdf",
-     	       "Cost": 20
-   		}, {
-   	    	"Store": "Csdfsdan",
-            	"Cost": 80
-   			}];
+    	//gets the stats for our new selection selection, Beer
+    	var newData = [];
+    	$scope.coffeeData = [];
+			receiptDataSvc.getShopNamesAndCost(param.name).then(function(data){
+				console.log(data);
+				
+				for(var i = 0; i < data.length; i++){
+					var shopName = data[i].storeName;
+					if(newData[shopName]!=null){
+						if(newData[shopName].receiptDate > data[i].receiptDate){
+							continue;
+						}
+						else{
+							newData[shopName]={receiptDate:data[i].receiptDate, cost:data[i].cost};
+							continue;
+						}
+					}
+					else
+						newData[shopName]={receiptDate:data[i].receiptDate, cost:data[i].cost};
+				}//end of for loop with associative array
+
+				//converts associative array to array of json objects
+				var temp = [];
+				var maxDate = 0000-00-00;
+				var minDate = 0000-00-00;
+				for(var key in newData){
+					maxDate = newData[key].receiptDate;
+					minDate = newData[key].receiptDate;
+					break;
+				}
+				for(var key in newData){
+					temp.push({"Store":key, "Cost": parseFloat(newData[key].cost), "iDate":newData[key].receiptDate});
+					console.log(newData[key].receiptDate);
+					var curDate = newData[key].receiptDate;
+					if(curDate > maxDate){
+						maxDate = curDate;
+					}
+					if(curDate < minDate){
+						minDate = curDate;
+					}
+				}
+				console.log(maxDate);
+				console.log(minDate);
+				console.log(temp);
+				$scope.coffeeData = temp;
+				$scope.minDate = minDate;
+   				$scope.maxDate = maxDate;
+   			
+				
+			});
     	}
 
 	}]);

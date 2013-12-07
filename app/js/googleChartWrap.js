@@ -8,6 +8,7 @@ angular.module('googleChartWrap', [])
                     //need to change shop, cost, date
                     data.addColumn('string', 'Store');
                     data.addColumn('number', 'Cost');
+
  
                     angular.forEach(value, function (row) {
                         data.addRow([row.Store, row.Cost]);

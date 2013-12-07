@@ -14,6 +14,7 @@
 		</div>
 	    
 	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
+	  <div id="item-Storename">{{minDate}} - {{maxDate}}</div>
 	  	<ul class="nav navbar-nav navbar-right">
 	  	  	      
 	      <li ng-class="{active: slug == 'back'}">
@@ -24,7 +25,7 @@
 	</nav>
 
 <div>Item: <select ng-model="currentItem" ng-options="item.name for item in allItems" ng-click="al(currentItem)"></select></div><br>
-<div id = "piechart" google-chart data="coffeeData" type="PieChart" title="{{currentItem.name}}" style="width: 900px; height: 500px;"></div>
+<div id = "piechart" google-chart data="coffeeData" type="PieChart" style="width: 900px; height: 500px;"></div>
 <div>{{currentItem.name}}</div>
 
 </div>
