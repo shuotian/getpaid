@@ -27,15 +27,56 @@
 	</nav>
 <div ng-controller = "NewReceiptCtrl">
 	<form name="myForm">
-		Store Name: <input type="text" ng-model="form.storename" required/>
-		<br/><br/>
-	 	Date: <input type="date" ng-model="form.receiptDate" required/>
-	 	<br/><br/>
+		<!-- FIRST ROW -->
+		<div class="row">
+			<div class="col-lg-5">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Store Name</span>
+						<input type="text" ng-model="form.storename" class="form-control" placeholder="Enter store name here" required>
+					</div>
+    		</div>
+		</div>
+		<!--Store Name: <input type="text" ng-model="form.storename" required/>
+		<br/><br/>-->
+
+		<!-- SECOND ROW -->
+		<br><br>
+		<div class="row">
+			<div class="col-lg-5">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Date</span>
+						<input type="text" ng-model="form.receiptDate" class="form-control" placeholder="Enter date here" required>
+					</div>
+    		</div>
+		</div>
+		<!--Date: <input type="date" ng-model="form.receiptDate" required/>
+	 	<br/><br/>-->
+
+		<!-- THIRD ROW -->
+		<!--
+		<br><br>
+		<div class="row">
+			<div class="col-lg-5">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Shared Receipt?</span>
+						<span class="input-group-addon input-group-addon-o btn btn-success btn-lg btn-lg-o" role="button" type=button ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
+							<span class="glyphicon glyphicon-ok"></span>
+						</span>
+						<span class="input-group-addon input-group-addon-o btn btn-danger btn-lg btn-lg-o" role="button" type=button ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt',0)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</span>
+					</div>
+    		</div>
+		</div>
+		-->
+
 	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
 	 	Yes<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt',0)">
 	 	No
 	 	<br/>
+
 	 	<!--Displays the items in the current newReceipt model-->
+
 	 	<label>Items:</label>
 	 	<div ng-repeat="item in form.items">
 	 		{{item.name}} - ${{item.cost}}[ <a href="" ng-click="removeItem($index)">X</a> ]
@@ -53,8 +94,32 @@
 	    </table><br/>
 	    </div>
 
-	 	<div>Quantity: <input type="number" ng-model="newItem.quantity"/></div><br/>
-	 	<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>
+	  <!-- # ROW -->
+		<br><br>
+		<div class="row">
+			<div class="col-lg-5">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Quantity</span>
+						<input type="number" ng-model="newItem.quantity" class="form-control" required>
+					</div>
+    		</div>
+		</div>
+
+	 	<!--<div>Quantity: <input type="number" ng-model="newItem.quantity"/></div><br/>-->
+
+	 	<!-- # ROW -->
+		<br><br>
+		<div class="row">
+			<div class="col-lg-5">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">Cost</span>
+						<input type="text" ng-model="newItem.cost" class="form-control" placeholder="$0.00" required>
+					</div>
+    		</div>
+		</div>
+
+	 	<!--<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>-->
+
 	 	Shared: <input type="radio" ng-model="newItem.shared" value = "1" ng-change="receiptPaid('item',1)">Yes
 	 	<input type="radio" ng-model="newItem.shared" value = "0" ng-change="receiptPaid('item',0)">No<br/>
 
@@ -80,14 +145,30 @@
 	 		[ <a href="" ng-click="addSharedUser(newItem,payer,payerid)">add this user</a> ]
 	 	</div>
 
-	 	[ <a href="" ng-click="addItem(newItem)">add item</a> ]
-		<br/>
+	 	<!-- # ROW -->
+		<br><br>
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon input-group-addon-o btn btn-primary btn-lg btn-lg-o" role="button" type=button ng-click="addItem(newItem)">
+						<span class="glyphicon glyphicon-plus"></span>
+					</span>
+    		</div>
+    	</div>
+		</div>
+		<!--[ <a href="" ng-click="addItem(newItem)">add item</a> ]-->
 	</form>
-	 
-	<button ng-click="cancel()" >Cancel</button>
-	<button ng-click="save()" >Save</button>
+	
+	<br><br>
 
-	<br/>
+	<div class="row">
+		<div class="col-lg-5">
+			<button ng-click="cancel()" class="btn btn-primary btn-lg" role="button">Cancel</button>
+			<button ng-click="save()" class="btn btn-primary btn-lg" role="button">Save</button>
+		</div>
+	</div>
+
+	<br><br>
 
 	Debug View:
 	<pre>
