@@ -202,7 +202,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.user   = {};
             $scope.friends = {};
             $scope.logged = false;
-          	alert(localStorage.userid);
+          	//alert(localStorage.userid);
           
           });
 
