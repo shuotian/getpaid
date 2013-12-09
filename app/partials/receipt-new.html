@@ -79,7 +79,7 @@
 
 	 	<label>Items:</label>
 	 	<div ng-repeat="item in form.items">
-	 		{{item.name}} - ${{item.cost}}[ <a href="" ng-click="removeItem($index)">X</a> ]
+	 		{{item.name}} - ${{item.cost}}[ <a href="" ng-click="removeItem($index)">Remove Item</a> ]
 	 	</div>
 
 	 	<!--Display input fields for adding details of each item to the newItem model-->
@@ -128,7 +128,7 @@
 	 		<label>User(s):</label>
 	 		<div ng-repeat="user in newItem.users">
 	 		<!--Displays the user(s) for the current shared item in newItem-->
-	 			<div>{{user}}[ <a href="" ng-click="removeUser($index)">X</a> ]</div>
+	 			<div>{{user}}[ <a href="" ng-click="removeUser($index)">Remove Payer</a> ]</div>
 	 		</div>
 	 		<div>Shared User: <input type="text" ng-model="payer"/></div><br/>
 	 		<div ng-model="payerid" ng-show="hidden"></div>
