@@ -202,7 +202,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
             $scope.user   = {};
             $scope.friends = {};
             $scope.logged = false;
-          	alert(localStorage.userid);
+          	//alert(localStorage.userid);
           
           });
 
@@ -251,7 +251,18 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 		}
 		receiptDataSvc.getReceipts().then(function(data){
 			console.log(data);
-			$scope.receipts = data;
+			var arr = [];
+			for(var key in data){
+				arr.push(data[key]);
+			}
+			var outputarr = [];
+			var i = arr.length;
+			while(i>0){
+				outputarr.push(arr.pop());
+				i--;
+			}
+			console.log(outputarr);
+			$scope.receipts = outputarr;
 			$scope.username = localStorage.username;
 			$scope.total = getTotal(data);
 		});

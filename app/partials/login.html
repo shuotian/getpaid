@@ -7,20 +7,19 @@
 <div class="container">
   <div class="jumbotron jumbotron-gp">
     <div class="col-md-6">
-      <a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="index.html"><img data-src="../img/logo-white.png" src="../img/logo-white.png" class="logo-footer"></a>
+      <a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="index.html"><img data-src="img/logo-white.png" src="img/logo-white.png" class="logo-footer"></a>
       <br><br>
       <h1 class="h1-gp">This is the easiest way to pay and get paid.</h1>
       <br>
       <p class="p-gp">Got an account? Log in.</p>
-      <button type="button" class="btn btn-primary btn-lg" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()">Login with Facebook</button>
-      <button type="button" class="btn btn-danger btn-lg" data-ng-show="logged" data-ng-disabled="!facebookReady" data-ng-click="logout()">Logout</button>
-      <a class="btn btn-info btn-lg" role="button">Sign up now</a>
+      <button type="button" class="btn btn-primary btn-lg" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()">Login/Signup with Facebook</button>
+      <img data-ng-show="logged" data-ng-disabled="!facebookReady" src ="img/ajax-loader.gif">
     </div>
   </div>
 
   <div class="footer">
       <p class="logo-footer">
-        <img data-src="../img/logo-monogram.png" width="203" height="69" src="../img/logo-monogram.png">
+        <img data-src="img/logo-monogram.png" width="203" height="69" src="img/logo-monogram.png">
       </p>
       <p>
         Created
