@@ -15,10 +15,7 @@
 	    
 	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
 	  	<ul class="nav navbar-nav navbar-right">
-	      <li ng-class="{active: slug == 'add'}">
-	      	<a href="#/receipts/add">Add</a>
-	      </li>
-	      
+	     	      
 	      <li ng-class="{active: slug == 'back'}">
 	      	<a href="#/receipts/">Back</a>
 	      </li>
@@ -45,7 +42,7 @@
 			<div class="col-lg-5">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">Date</span>
-						<input type="text" ng-model="form.receiptDate" class="form-control" placeholder="Enter date here" required>
+						<input type="date" ng-model="form.receiptDate" class="form-control" placeholder="Enter date here (yyyy-mm-dd)" required>
 					</div>
     		</div>
 		</div>
@@ -83,7 +80,7 @@
 	 	</div>
 
 	 	<!--Display input fields for adding details of each item to the newItem model-->
-	 	<div>Item Name: <input type="text" ng-model="newItem.name"/></div><br/>
+	 	<div>Item Name: <input type="text" ng-model="newItem.name" ng-click="ocrnewreceipt()"/></div><br/>
 	 	<div ng-model="testid" ng-show="hidden"></div>
 	 	<div ng-show="newItem.name.length">	
 	 		<table id="itemTextResults">

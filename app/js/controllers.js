@@ -494,6 +494,13 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 		$scope.attachitem=function(value){
 			$scope.newItem.name = value;
 		}
+		/*
+		$scope.ocrnewreceipt=function(itemName, itemQty, itemCost){
+			$scope.newItem.name = itemName;
+			$scope.newItem.quantity = itemQty;
+			$scope.newItem.cost = itemCost;
+		}
+		*/
 		$scope.cancel();
 	}]);
 
