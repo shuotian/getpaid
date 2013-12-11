@@ -13,7 +13,7 @@
 			</a>
 		</div>
 	    
-	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1"><div id="item-Storename">Add New Receipt</div>
+	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
 	  	<ul class="nav navbar-nav navbar-right">
 	     	      
 	      <li ng-class="{active: slug == 'back'}">
@@ -22,11 +22,11 @@
 	    </ul>
 	  </div>
 	</nav>
-<div ng-controller = "NewReceiptCtrl">
+<div ng-controller = "ReceiptOCRCtrl">
 	<form name="myForm">
 		<!-- FIRST ROW -->
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">Store Name</span>
 						<input type="text" ng-model="form.storename" class="form-control" placeholder="Enter store name here" required>
@@ -39,7 +39,7 @@
 		<!-- SECOND ROW -->
 		<br><br>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">Date</span>
 						<input type="date" ng-model="form.receiptDate" class="form-control" placeholder="Enter date here (yyyy-mm-dd)" required>
@@ -66,7 +66,6 @@
     		</div>
 		</div>
 		-->
-		<br>
 
 	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
 	 	Yes<input type="radio" ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt',0)">
@@ -81,9 +80,9 @@
 	 	</div>
 
 	 	<!--Display input fields for adding details of each item to the newItem model-->
-	 	<div>Item Name: <input type="text" ng-model="newItem.name" /></div><br/>
-	 	<div>OCR Items: <select ng-model="newItem.name" ng-options="item.name for item in allItems" ng-click="ocrnewreceipt(newItem.name)"></select></div><br/>
-
+	 	<div>Item Name: <input type="text" ng-model="newItem.name" ng-click="ocrnewreceipt()"/></div><br/>
+	 	<select ng-model="newItem.name" ng-options="item.name for item in allItems" ng-click="ocrnewreceipt(newItem.name)"></select>
+	 	<div ng-repeat ="item in allItems" ng-click="ocrnewreceipt(item)">{{item}}</div>
 	 	<div ng-model="testid" ng-show="hidden"></div>
 	 	<div ng-show="newItem.name.length">	
 	 		<table id="itemTextResults">
@@ -95,8 +94,9 @@
 	    </div>
 
 	  <!-- # ROW -->
+		<br><br>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">Quantity</span>
 						<input type="number" ng-model="newItem.quantity" class="form-control" required>
@@ -109,15 +109,13 @@
 	 	<!-- # ROW -->
 		<br><br>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">Cost</span>
 						<input type="text" ng-model="newItem.cost" class="form-control" placeholder="$0.00" required>
 					</div>
     		</div>
 		</div>
-
-		<br>
 
 	 	<!--<div>Cost: <input type="text" ng-model="newItem.cost" /></div><br/>-->
 
@@ -149,7 +147,7 @@
 	 	<!-- # ROW -->
 		<br><br>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 				<div class="input-group input-group-lg">
 					<span class="input-group-addon input-group-addon-o btn btn-primary btn-lg btn-lg-o" role="button" type=button ng-click="addItem(newItem)">
 						<span class="glyphicon glyphicon-plus"></span>
@@ -163,20 +161,21 @@
 	<br><br>
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-5">
 			<button ng-click="cancel()" class="btn btn-primary btn-lg" role="button">Cancel</button>
 			<button ng-click="save()" class="btn btn-primary btn-lg" role="button">Save</button>
 
-			<button ng-click="loadOcr(imgpath)" class="btn btn-primary btn-lg" role="button">Load OCR</button>&nbsp;<select ng-model="imgpath" ng-options="img.name for img in allImg" ></select>
+			<button ng-click="loadOcr()" class="btn btn-primary btn-lg" role="button">Load OCR</button>
 		</div>
 	</div>
 
 	<br><br>
 
-	<!--Debug View:
+	Debug View:
 	<pre>
 	form={{form}} payer ={{payer}}
 	<br/>
 	master={{master}}
-	</pre>-->
+	</pre>
+</div>
 </div>

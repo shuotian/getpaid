@@ -165,6 +165,7 @@ getpaidControllers.controller('LoginCtrl',['$scope', '$timeout', 'Facebook','$lo
               $scope.user = response;
             
             });
+
             localStorage.userid = response.id;
             localStorage.username = response.name;
             localStorage.email = response.email;
@@ -268,7 +269,7 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 			}
 			console.log(outputarr);
 			$scope.receipts = outputarr;
-			$scope.username = localStorage.username;
+			$scope.username = localStorage.username.split(" ")[0];
 			$scope.total = getTotal(data);
 		});
 
