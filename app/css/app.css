@@ -56,6 +56,7 @@
   color: black;
   padding: 0 0 0 10px;
   height: 50px;
+  margin-bottom: 1px;
 }
 
 .fullyPaid {
@@ -63,6 +64,7 @@
   color: white;
   padding: 0 0 0 10px;
   height: 50px;
+  margin-bottom: 1px;
 }
 .itemPaid{
   text-decoration:line-through;
@@ -74,6 +76,8 @@
 
 #welcomeuser {
   font-size:30px;
+  margin-left: 5px;
+  margin-bottom:10px;
 }
 
 /**
@@ -167,4 +171,52 @@ font-size: 20pt;
   -ms-filter: none;
   filter: none;
   margin: 0 2px;
+}
+
+.receipt{
+  display:inline-block;
+  font-size:24px;
+}
+
+.receiptPrice{
+  display: inline;
+  position: relative;
+  float: right;
+  margin-right: 30px;
+  margin-top: 8px;
+  font-size: 25px;
+}
+
+.receiptDate{
+  display:inline-block;
+  position:relative;
+}
+.swipeLabel{
+ font-size: 10px;
+ display: inline-block;
+}
+
+.storeImg{
+  padding-bottom: 8px;
+}
+
+.deleteReceipt{
+  display:inline-block;
+  float:right;
+}
+
+.clickReceipt{
+  margin-right:45px;
+}
+
+#total{
+  padding-top:12px;
+  padding-bottom:12px;
+  font-size:40px;
+ border:2px solid;
+}
+
+#totalNumber{
+  float:right;
+  margin-right:30px;
 }

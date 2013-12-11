@@ -270,7 +270,7 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 			console.log(outputarr);
 			$scope.receipts = outputarr;
 			$scope.username = localStorage.username.split(" ")[0];
-			$scope.total = getTotal(data);
+			$scope.total = getTotal(data).toFixed(2);
 		});
 
 		//console.log(localStorage.friends);

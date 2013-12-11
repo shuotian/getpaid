@@ -40,19 +40,19 @@
 
 	<div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
 		<div ng-click="receiptClicked(receipt.id,receipt.store, receipt.receiptDate)" id="{{receipt.id}}">
-	 		<h5>{{receipt.store}} ({{receipt.receiptDate}}) &nbsp; - &nbsp;  ${{receipt.amount}}</h5>
+		<img class="storeImg" src="http://www.google.com/s2/favicons?domain=www.{{receipt.store}}.com">
+	 		<div class="receipt">{{receipt.store}}</div>
+	 		<div class="receiptDate">({{receipt.receiptDate}})</div>
+	 		<div class="receiptPrice">${{receipt.amount}}</div>
 	 	</div>
 
-	 	<div ng-swipe-left = "deleteReceipt({{receipt.id}})">
+	 	<div class = "swipeLabel"ng-swipe-left = "deleteReceipt({{receipt.id}})">
 	 		Swipe left to delete
 	 	</div>
 	</div>
 
 	<div id = "total">
-		<h5></h5>
+		Total for all receipts: <div id="totalNumber">${{total}}</div>
 	</div>
 
-	<div>
-		<h5>Total for all receipts: ${{total}}</h5>
-	</div>
 </div>
