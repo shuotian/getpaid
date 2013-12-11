@@ -531,6 +531,19 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 			$scope.allItems = data;
 			console.log(data);
 		});
+			//FOR DEMO PURPOSES ONLY
+			if(data.name==="/home/schen79/public_html/images/receipt.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt2.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt2.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt3.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt3.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt4.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt4.jpg");
+			}
 		};
 
 
