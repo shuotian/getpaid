@@ -47,6 +47,11 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/item_shopAndCost.php',{params:{userid:localStorage.userid, itemName:value}}).then(function(result) {
 				return result.data;
 			});
+		},
+		getOCRItems: function() {
+			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid}}).then(function(result) {
+				return result.data;
+			});
 		}
 	}
 });
@@ -490,17 +495,26 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 		};
 		$scope.allitems=function(){
 			return $scope.items;
-		}
+		};
 		$scope.attachitem=function(value){
 			$scope.newItem.name = value;
-		}
-		/*
-		$scope.ocrnewreceipt=function(itemName, itemQty, itemCost){
-			$scope.newItem.name = itemName;
-			$scope.newItem.quantity = itemQty;
-			$scope.newItem.cost = itemCost;
-		}
-		*/
+		};
+		$scope.ocrnewreceipt=function(item){
+			console.log(item);
+			$scope.newItem.name = item.name;
+			//$scope.newItem.quantity = itemQty;
+			//$scope.newItem.cost = itemCost;
+		};
+		$scope.loadOcr=function(){
+			receiptDataSvc.getOCRItems().then(function(data){
+			for(var i = 0; i < data.length;i++){
+				arr[i] = data[i].name;
+			}
+			$scope.allItems = data;
+			console.log(data);
+		});
+		};
+
 		$scope.cancel();
 	}]);
 
@@ -522,6 +536,7 @@ getpaidControllers.controller('StatsCtrl',['$scope','receiptDataSvc',
 				arr[i] = {name:data[i].name};
 			}
 			$scope.allItems = arr;
+			console.log(arr);
 			$scope.currentItem = $scope.allItems[5]; // Beer
 			//console.log($scope.currentItem.name);	
 			
