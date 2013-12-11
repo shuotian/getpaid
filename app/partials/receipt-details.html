@@ -33,7 +33,7 @@
 			<div class="itemWrap">
 				<div class="itemName">{{item.name}}</div>
 				<div class="itemCost">${{item.cost}}</div>
-			<div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}} - {{item.payerNumber}} - {{item.paid}}</div>
+			<div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}}</div>
 			<div ng-hide="item.paid==0" class="paid">Paid</div>
 				<button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
 		 	</div>
