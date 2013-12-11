@@ -48,8 +48,8 @@ getpaidControllers.factory('receiptDataSvc', function($http) {
 				return result.data;
 			});
 		},
-		getOCRItems: function() {
-			return $http.get('https://web.engr.illinois.edu/~heng3/getpaid/app/php/allItems.php',{params:{userid:localStorage.userid}}).then(function(result) {
+		getOCRItems: function(path) {
+			return $http.get('http://web.engr.illinois.edu/~schen79/outputOCR.php',{params:{imagePath:path}}).then(function(result) {
 				return result.data;
 			});
 		}
@@ -411,7 +411,14 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 			}
 			$scope.names = arr;
 		});
-		//console.log(arr);
+		
+		$scope.allImg = [{"name":"/home/schen79/public_html/images/receipt.jpg"},
+							{"name":"/home/schen79/public_html/images/receipt2.jpg"},
+							{"name":"/home/schen79/public_html/images/receipt3.jpg"},
+							{"name":"/home/schen79/public_html/images/receipt4.jpg"}
+		]
+
+		$scope.imgpath = $scope.allImg[0];
 
 		//gets a list of facebook friends
 		var friends = {
@@ -502,18 +509,21 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 		$scope.ocrnewreceipt=function(item){
 			console.log(item);
 			$scope.newItem.name = item.name;
-			//$scope.newItem.quantity = itemQty;
-			//$scope.newItem.cost = itemCost;
+			$scope.newItem.quantity = parseFloat(item.quantity);
+			$scope.newItem.cost = item.cost;
 		};
-		$scope.loadOcr=function(){
-			receiptDataSvc.getOCRItems().then(function(data){
-			for(var i = 0; i < data.length;i++){
+		$scope.loadOcr=function(data){
+			console.log(data.name);
+			receiptDataSvc.getOCRItems(data.name).then(function(data){
+			/*for(var i = 0; i < data.length;i++){
 				arr[i] = data[i].name;
-			}
+			}*/
+			alert("image loaded into OCR Items");
 			$scope.allItems = data;
 			console.log(data);
 		});
 		};
+
 
 		$scope.cancel();
 	}]);

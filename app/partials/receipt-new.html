@@ -81,8 +81,8 @@
 	 	</div>
 
 	 	<!--Display input fields for adding details of each item to the newItem model-->
-	 	<div>Item Name: <input type="text" ng-model="newItem.name" ng-click="ocrnewreceipt()"/></div><br/>
-	 	<select ng-model="newItem.name" ng-options="item.name for item in allItems" ng-click="ocrnewreceipt(newItem.name)"></select>
+	 	<div>Item Name: <input type="text" ng-model="newItem.name" /></div><br/>
+	 	<div>OCR Items: <select ng-model="newItem.name" ng-options="item.name for item in allItems" ng-click="ocrnewreceipt(newItem.name)"></select></div><br/>
 
 	 	<div ng-model="testid" ng-show="hidden"></div>
 	 	<div ng-show="newItem.name.length">	
@@ -167,7 +167,7 @@
 			<button ng-click="cancel()" class="btn btn-primary btn-lg" role="button">Cancel</button>
 			<button ng-click="save()" class="btn btn-primary btn-lg" role="button">Save</button>
 
-			<button ng-click="loadOcr()" class="btn btn-primary btn-lg" role="button">Load OCR</button>
+			<button ng-click="loadOcr(imgpath)" class="btn btn-primary btn-lg" role="button">Load OCR</button>&nbsp;<select ng-model="imgpath" ng-options="img.name for img in allImg" ></select>
 		</div>
 	</div>
 
