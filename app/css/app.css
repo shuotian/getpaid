@@ -117,12 +117,11 @@
   margin: -10px 0 0 -15px;
 }
 #item-Storename {
-text-align: center;
-position: absolute;
+
 display:inline-block;
 top: 6px;
 font-size: 20pt;
-margin-left: 90px;
+padding-top: 8px;
 }
 
 /* Transparencies */
@@ -252,4 +251,10 @@ font-size:30px;
 }
 #detailedTotal{
   font-size:20px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+
+  width: 100%;
+  text-align: center;
 }
