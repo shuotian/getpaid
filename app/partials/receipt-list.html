@@ -40,8 +40,8 @@
 
 	<div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
 		<div ng-click="receiptClicked(receipt.id,receipt.store, receipt.receiptDate)" id="{{receipt.id}}">
-		<img class="storeImg" src="http://www.google.com/s2/favicons?domain=www.{{receipt.store}}.com">
-	 		<div class="receipt">{{receipt.store}}</div>
+		
+	 		<div class="receipt"><img class="storeImg" src="http://www.google.com/s2/favicons?domain=www.{{receipt.store}}.com">{{receipt.store}}</div>
 	 		<div class="receiptDate">({{receipt.receiptDate}})</div>
 	 		<div class="receiptPrice">${{receipt.amount}}</div>
 	 	</div>

@@ -14,7 +14,8 @@
 		</div>
 	    
 	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
-	  <div id="item-Storename">{{storename}}  {{boughtDate}}</div>
+
+	  <div id="item-Storename"><img id="detailedStoreImg" src="http://www.google.com/s2/favicons?domain=www.{{storename}}.com">{{storename}}  {{boughtDate}}</div>
 	  	<ul class="nav navbar-nav navbar-right">
 	      <li ng-class="{active: slug == 'add'}">
 	      	<a href="#/receipts/add">Add</a>
@@ -29,18 +30,19 @@
 
 	<div ng-repeat="item in receipt" >
 		<div class="sharedColor">
-			<div>{{item.name}} - ${{item.cost}}</div>
+			<div class="itemWrap">
+				<div class="itemName">{{item.name}}</div>
+				<div class="itemCost">${{item.cost}}</div>
 			<div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}} - {{item.payerNumber}} - {{item.paid}}</div>
-			<div ng-hide="item.paid==0">Paid</div>
-				<button ng-click="sendFbMsg(item.payerNumber)">Send Fb Message</button>
+			<div ng-hide="item.paid==0" class="paid">Paid</div>
+				<button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
+		 	</div>
 		 	</div>
 		</div>
 	</div>
 	 
-	<div>
-	 	<h5>
+	<div id="detailedTotal">
 	 		Total amount: ${{total}}
-	 	</h5>
-	 	<button ng-click="save()" >Save</button>
 	</div>
+	<button ng-click="save()" >Save</button>
 </div>
