@@ -268,9 +268,17 @@ getpaidControllers.controller('ReceiptListCtrl', ['$scope', '$location','receipt
 				i--;
 			}
 			console.log(outputarr);
+			var date_sort_desc = function (date1, date2) {
+  // This is a comparison function that will result in dates being sorted in
+  // DESCENDING order.
+  if (date1.receiptDate > date2.receiptDate) return -1;
+  if (date1.receiptDate < date2.receiptDate) return 1;
+  return 0;
+};
+			outputarr.sort(date_sort_desc);
 			$scope.receipts = outputarr;
 			$scope.username = localStorage.username.split(" ")[0];
-			$scope.total = getTotal(data);
+			$scope.total = getTotal(data).toFixed(2);
 		});
 
 		//console.log(localStorage.friends);
@@ -523,6 +531,19 @@ getpaidControllers.controller('NewReceiptCtrl',['$scope','$http','receiptDataSvc
 			$scope.allItems = data;
 			console.log(data);
 		});
+			//FOR DEMO PURPOSES ONLY
+			if(data.name==="/home/schen79/public_html/images/receipt.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt2.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt2.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt3.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt3.jpg");
+			}
+			else if(data.name==="/home/schen79/public_html/images/receipt4.jpg"){
+				window.open("http://web.engr.illinois.edu/~schen79/images/receipt4.jpg");
+			}
 		};
 
 
