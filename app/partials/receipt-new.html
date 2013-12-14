@@ -46,26 +46,7 @@
 					</div>
     		</div>
 		</div>
-		<!--Date: <input type="date" ng-model="form.receiptDate" required/>
-	 	<br/><br/>-->
 
-		<!-- THIRD ROW -->
-		<!--
-		<br><br>
-		<div class="row">
-			<div class="col-lg-5">
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon">Shared Receipt?</span>
-						<span class="input-group-addon input-group-addon-o btn btn-success btn-lg btn-lg-o" role="button" type=button ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
-							<span class="glyphicon glyphicon-ok"></span>
-						</span>
-						<span class="input-group-addon input-group-addon-o btn btn-danger btn-lg btn-lg-o" role="button" type=button ng-model="form.sharedReceipt" value = "0" ng-change="receiptPaid('receipt',0)">
-							<span class="glyphicon glyphicon-remove"></span>
-						</span>
-					</div>
-    		</div>
-		</div>
-		-->
 		<br>
 
 	 	Shared Receipt: <input type="radio" ng-model="form.sharedReceipt" value = "1" ng-change="receiptPaid('receipt',1)">
@@ -157,7 +138,6 @@
     		</div>
     	</div>
 		</div>
-		<!--[ <a href="" ng-click="addItem(newItem)">add item</a> ]-->
 	</form>
 	
 	<br><br>
@@ -172,11 +152,4 @@
 	</div>
 
 	<br><br>
-
-	<!--Debug View:
-	<pre>
-	form={{form}} payer ={{payer}}
-	<br/>
-	master={{master}}
-	</pre>-->
 </div>
