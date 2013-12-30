@@ -11,10 +11,10 @@ $delete_item_query = "DELETE FROM Item WHERE receiptId = $receiptId";
 $delete_receipt_query = "DELETE FROM Receipt WHERE receiptId = $receiptId";
 
 if(mysqli_query($dbConnection, $delete_item_query)){
-	if(mysqli_query($dbConnection, $delete_receipt_query)){
+  if(mysqli_query($dbConnection, $delete_receipt_query)){
 
-		echo "SUCCESS";
-	}
+    echo "SUCCESS";
+  }
 }
 
 

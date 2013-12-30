@@ -1,58 +1,58 @@
 <div class="container">
-	<!-- NAVIGATION -->
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
-				<img data-src="img/logo-monogram.png" width="102" height="34" src="img/logo-monogram.png" class="logo-footer">
-			</a>
-		</div>
-	    
-	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
-	  	<ul class="nav navbar-nav navbar-right">
-	  	  <li ng-class="{active: slug == 'add'}">
-	      	<a href="#/about">About</a>
-	      </li>
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
+        <img data-src="img/logo-monogram.png" width="102" height="34" src="img/logo-monogram.png" class="logo-footer">
+      </a>
+    </div>
+      
+    <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-class="{active: slug == 'add'}">
+          <a href="#/about">About</a>
+        </li>
 
-	  	  <li ng-class="{active: slug == 'add'}">
-	      	<a href="#/receipts/stats">Stats</a>
-	      </li>
+        <li ng-class="{active: slug == 'add'}">
+          <a href="#/receipts/stats">Stats</a>
+        </li>
 
-	      <li ng-class="{active: slug == 'add'}">
-	      	<a href="#/receipts/add">Add</a>
-	      </li>
-	      
-	      <li ng-class="{active: slug == 'add'}">
-	      	<a  href="#/login" ng-click = "logout()">Logout</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+        <li ng-class="{active: slug == 'add'}">
+          <a href="#/receipts/add">Add</a>
+        </li>
+        
+        <li ng-class="{active: slug == 'add'}">
+          <a  href="#/login" ng-click = "logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-	<div id = "welcomeuser">
-		Welcome Back,&nbsp;{{username}}!
-	</div>
+  <div id = "welcomeuser">
+    Welcome Back,&nbsp;{{username}}!
+  </div>
 
-	<div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
-		<div ng-click="receiptClicked(receipt.id,receipt.store, receipt.receiptDate)" id="{{receipt.id}}">
-		
-	 		<div class="receipt"><img class="storeImg" src="http://www.google.com/s2/favicons?domain=www.{{receipt.store}}.com">{{receipt.store}}</div>
-	 		<div class="receiptDate">({{receipt.receiptDate}})</div>
-	 		<div class="receiptPrice">${{receipt.amount}}</div>
-	 	</div>
+  <div ng-repeat="receipt in receipts" ng-class="{'unpaid':receipt.paid==false, 'fullyPaid':receipt.paid==true}">
+    <div ng-click="receiptClicked(receipt.id,receipt.store, receipt.receiptDate)" id="{{receipt.id}}">
+    
+      <div class="receipt"><img class="storeImg" src="http://www.google.com/s2/favicons?domain=www.{{receipt.store}}.com">{{receipt.store}}</div>
+      <div class="receiptDate">({{receipt.receiptDate}})</div>
+      <div class="receiptPrice">${{receipt.amount}}</div>
+    </div>
 
-	 	<div class = "swipeLabel"ng-swipe-left = "deleteReceipt({{receipt.id}})">
-	 		Swipe left to delete
-	 	</div>
-	</div>
+    <div class = "swipeLabel"ng-swipe-left = "deleteReceipt({{receipt.id}})">
+      Swipe left to delete
+    </div>
+  </div>
 
-	<div id = "total">
-		Total for all receipts: <div id="totalNumber">${{total}}</div>
-	</div>
+  <div id = "total">
+    Total for all receipts: <div id="totalNumber">${{total}}</div>
+  </div>
 
 </div>

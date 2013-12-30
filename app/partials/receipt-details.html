@@ -1,52 +1,52 @@
-<div class="container">	
-	<!-- NAVIGATION -->
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
-				<img data-src="img/logo-monogram.png" width="102" height="34" src="img/logo-monogram.png" class="logo-footer">
-			</a>
-		</div>
-	    
-	  <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
+<div class="container"> 
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navbar-brand-gp font-override-OpenSans" href="#/receipts/">
+        <img data-src="img/logo-monogram.png" width="102" height="34" src="img/logo-monogram.png" class="logo-footer">
+      </a>
+    </div>
+      
+    <div class="collapse navbar-collapse font-override-OpenSans" id="bs-example-navbar-collapse-1">
 
-	  <div id="item-Storename"><img id="detailedStoreImg" src="http://www.google.com/s2/favicons?domain=www.{{storename}}.com">{{storename}}  {{boughtDate}}</div>
-	  	<ul class="nav navbar-nav navbar-right">
-	      <li ng-class="{active: slug == 'add'}">
-	      	<a href="#/receipts/add">Add</a>
-	      </li>
-	      
-	      <li ng-class="{active: slug == 'back'}">
-	      	<a href="#/receipts/">Back</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+    <div id="item-Storename"><img id="detailedStoreImg" src="http://www.google.com/s2/favicons?domain=www.{{storename}}.com">{{storename}}  {{boughtDate}}</div>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-class="{active: slug == 'add'}">
+          <a href="#/receipts/add">Add</a>
+        </li>
+        
+        <li ng-class="{active: slug == 'back'}">
+          <a href="#/receipts/">Back</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-	<div ng-repeat="item in receipt" >
-		<div class="sharedColor">
-			<div>{{item.name}} - ${{item.cost}}</div>
-			<div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}} - {{item.payerNumber}} - {{item.paid}}</div>
-			<div ng-hide="item.paid==0">Paid</div>
-				<button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
-			<div class="itemWrap">
-				<div class="itemName">{{item.name}}</div>
-				<div class="itemCost">${{item.cost}}</div>
-			<div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}}</div>
-			<div ng-hide="item.paid==0" class="paid">Paid</div>
-				<button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
-		 	</div>
-		 	</div>
-		</div>
-	</div>
-	 
-	<div id="detailedTotal">
-	 		Total amount: ${{total}}
-	</div>
-	<button ng-click="save()" >Save</button>
+  <div ng-repeat="item in receipt" >
+    <div class="sharedColor">
+      <div>{{item.name}} - ${{item.cost}}</div>
+      <div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}} - {{item.payerNumber}} - {{item.paid}}</div>
+      <div ng-hide="item.paid==0">Paid</div>
+        <button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
+      <div class="itemWrap">
+        <div class="itemName">{{item.name}}</div>
+        <div class="itemCost">${{item.cost}}</div>
+      <div ng-hide="item.payerName==='None'"  ><input type="checkbox" ng-model="value1" ng-change="clearpayer(item.payerNumber, item.itemId)" id = "check{{item.payerNumber}}" ><div id="payer{{item.payerNumber}}" ng-class="{'itemUnpaid':item.paid==0, 'itemPaid':item.paid==1}">{{item.payerName}}</div>
+      <div ng-hide="item.paid==0" class="paid">Paid</div>
+        <button ng-click="sendFbMsg(item.payerNumber)">Send Facebook Message</button>
+      </div>
+      </div>
+    </div>
+  </div>
+   
+  <div id="detailedTotal">
+      Total amount: ${{total}}
+  </div>
+  <button ng-click="save()" >Save</button>
 </div>

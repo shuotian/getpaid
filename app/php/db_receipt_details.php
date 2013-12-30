@@ -18,14 +18,14 @@ $output = array();
 
 while($row = mysqli_fetch_array($result)){
 
-	$item['name'] = $row[0];
-	$item['cost'] = $row[1];
-	$item['payerNumber'] = $row[2];
-	$item['payerName'] = $row[3];
-	$item['itemId'] = $row[4];
-	$item['paid'] = $row[5];
-	array_push($output, $item);
-	
+  $item['name'] = $row[0];
+  $item['cost'] = $row[1];
+  $item['payerNumber'] = $row[2];
+  $item['payerName'] = $row[3];
+  $item['itemId'] = $row[4];
+  $item['paid'] = $row[5];
+  array_push($output, $item);
+  
 }
 echo json_encode($output);
 

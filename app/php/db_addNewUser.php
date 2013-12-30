@@ -9,12 +9,12 @@ $userName = $postData->username;
 $userEmail = $postData->email;
 
 if(isset($userID, $userName, $userEmail)){
-	$query = "INSERT INTO Users (userID, Name, Email) VALUES ('$userID', '$userName', '$userEmail')";
-	if(mysqli_query($dbConnection, $query)){
-		echo "user added to db!";
-	}
-	else{
-		echo "add user failed";
-	}
+  $query = "INSERT INTO Users (userID, Name, Email) VALUES ('$userID', '$userName', '$userEmail')";
+  if(mysqli_query($dbConnection, $query)){
+    echo "user added to db!";
+  }
+  else{
+    echo "add user failed";
+  }
 } 
 ?>

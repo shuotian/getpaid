@@ -1,11 +1,11 @@
 #img_container
 {
-	border-top-left-radius: 999px; 
-	border-top-right-radius: 999px; 
-	border-bottom-right-radius: 999px; 
-	border-bottom-left-radius: 999px; 
-	width: 200px; 
-	height: 200px; 
-	overflow: hidden; 
-	text-align: justify;
+  border-top-left-radius: 999px; 
+  border-top-right-radius: 999px; 
+  border-bottom-right-radius: 999px; 
+  border-bottom-left-radius: 999px; 
+  width: 200px; 
+  height: 200px; 
+  overflow: hidden; 
+  text-align: justify;
 }
