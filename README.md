@@ -1,4 +1,5 @@
 # GetPaid — the AngularJS app for tracking and sharing receipts with friends
+http://web.engr.illinois.edu/~heng3/getpaid/app/
 
 Features:
 
